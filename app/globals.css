@@ -1,9 +1,7 @@
 @import 'tailwindcss';
 @import '@liveblocks/react-ui/styles.css';
-@import '@liveblocks/react-lexical/styles.css';
 @import '../styles/dark-theme.css';
 
-@plugin 'tailwindcss-animate';
 
 /* class-based dark mode, matching the old darkMode: ['class'] config */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -14,9 +12,9 @@
   --breakpoint-2xl: 1400px;
 
   /* colors */
-  --color-blue-100: #B4C6EE;
-  --color-blue-400: #417BFF;
-  --color-blue-500: #3371FF;
+  --color-blue-100: #C7C2ED;
+  --color-blue-400: #352C8F;
+  --color-blue-500: #3A2EAA;
 
   --color-red-400: #DD4F56;
   --color-red-500: #DC4349;

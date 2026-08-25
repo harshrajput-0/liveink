@@ -136,7 +136,7 @@ export default function ToolbarPlugin() {
       </button>
       <button
         disabled={!canRedo}
-        onClick={() => {
+        onClick={() => { 
           editor.dispatchCommand(REDO_COMMAND, undefined);
         }}
         className="toolbar-item"
