@@ -1,7 +1,7 @@
 'use client';
 
 import InkSyncLoaderDraw from '@/components/icons/InkSyncLoaderDraw';
-import { getClerkUsers, getDocumentUsers } from '@/lib/actions/user.actions.js';
+import { getClerkUsers, getDocumentUsers } from '@/lib/actions/user.actions';
 import { useUser } from '@clerk/nextjs';
 import { ClientSideSuspense, LiveblocksProvider } from '@liveblocks/react/suspense';
 import { ReactNode } from 'react';
