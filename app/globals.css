@@ -147,10 +147,6 @@
     @apply custom-scrollbar h-[calc(100vh-140px)] gap-5 overflow-auto px-5 pt-5 lg:flex-row lg:items-start lg:justify-center  xl:gap-10 xl:pt-10;
   }
 
-  .header {
-    @apply min-h-23 min-w-full flex-nowrap bg-dark-100 flex w-full items-center justify-between gap-2 px-4;
-  }
-
   .document-list-container {
     @apply flex flex-col items-center mb-10 w-full gap-10 px-5;
   }
@@ -212,10 +208,6 @@
     @apply flex h-screen w-full flex-col items-center justify-center gap-10;
   }
 
-  /* ======================== Home Page */
-  .home-container {
-    @apply relative flex min-h-screen w-full flex-col items-center gap-5 sm:gap-10;
-  }
 
   .document-ul {
     @apply flex w-full max-w-182.5 flex-col gap-5;
