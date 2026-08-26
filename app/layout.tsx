@@ -39,8 +39,8 @@ export default function RootLayout({
       }}
     >
 
-      <html lang="en" className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}>
-        <body className="min-h-full flex flex-col">
+      <html lang="en" className={cn("h-full", "a/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fntialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}>
+        <body className="min-h-full flex flex-col items-center justify-center">
           <Provider>
             {children}
 
