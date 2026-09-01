@@ -1,35 +1,37 @@
-"use client";
-
 import { Header } from "@/components/navigation/Header";
-import { SignInButton, UserButton, useUser, useClerk } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
+import { FileText } from "lucide-react";
+import { redirect } from "next/navigation";
+import AddDocumentBtn from "@/components/AddDocumentBtn";
 
-const Home = () => {
-  const { isSignedIn } = useUser();
-  const { signOut } = useClerk();
+const Home = async () => {
+  const clerkUser = await currentUser();
+  if (!clerkUser) {
+    redirect("/sign-in");
+  }
+
+  const documents = [];
+
   return (
     <main className="relative flex min-h-screen w-full flex-col items-center gap-5 sm:gap-10">
-      <Header className="sticky top-0 left-0">
+      <Header className="sticky left-0 top-0"> 
         <div className="flex items-center gap-2 lg:gap-4">
-          {isSignedIn ? (
-            <>
-              <UserButton />
-
-              <button
-                onClick={() => signOut()}
-                className="rounded-md bg-red-600 px-4 py-2 text-md text-white"
-              >
-                Sign Out
-              </button>
-            </>
-          ) : (
-            <SignInButton>
-              <button className="rounded-md bg-black px-4 py-2 text-sm text-white">
-                Sing in
-              </button>
-            </SignInButton>
-          )}
+          Notification
+            <UserButton />
         </div>
       </Header>
+
+      {documents.length > 0 ? (
+        <div></div>
+      ) : (
+        <div>
+          <FileText size={26} className="max-auto" />
+          <AddDocumentBtn 
+          userId={clerkUser.id}
+          email={clerkUser.emailAddresses[0].emailAddress}          />
+        </div>
+      )}
     </main>
   );
 };

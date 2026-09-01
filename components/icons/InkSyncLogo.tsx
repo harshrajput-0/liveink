@@ -7,14 +7,14 @@ export interface InkSyncLogoProps {
   showWordmark?: boolean;
   /** Show the "COLLABORATIVE DOCS" tagline under the wordmark. Default: true */
   showTagline?: boolean;
-  /** "light" for light backgrounds, "dark" for dark backgrounds. Default: "light" */
+  /** "light" for light backgrounds, "dark" for dark backgrounds. Default: "dark" */
   theme?: "light" | "dark";
-  /** Icon gradient start color. Overrides theme default. */
+  /** Nib gradient start color. Overrides theme default. */
   colorStart?: string;
-  /** Icon gradient end color. Overrides theme default. */
+  /** Nib gradient end color. Overrides theme default. */
   colorEnd?: string;
-  /** Sync-arrow accent color. Overrides theme default. */
-  accentColor?: string;
+  /** Outer ring color. Overrides theme default. */
+  ringColor?: string;
   /** Wordmark "Ink" color. Overrides theme default. */
   wordmarkColor?: string;
   /** Wordmark "Sync" color. Overrides theme default. */
@@ -28,37 +28,36 @@ const THEME_DEFAULTS = {
   light: {
     colorStart: "#4338CA",
     colorEnd: "#06B6D4",
-    accentColor: "#0E7490",
+    ringColor: "#0E7490",
     wordmarkColor: "#1E1B4B",
     wordmarkAccentColor: "#0891B2",
     taglineColor: "#64748B",
-    nibDetail: "#FFFFFF", // slit line + tip dot, sits on top of the nib fill
+    nibDetail: "#FFFFFF",
   },
   dark: {
-    colorStart: "#818CF8",
+    colorStart: "#4338CA",
     colorEnd: "#22D3EE",
-    accentColor: "#67E8F9",
+    ringColor: "#0E7490",
     wordmarkColor: "#F8FAFC",
     wordmarkAccentColor: "#22D3EE",
-    taglineColor: "#94A3B8",
-    nibDetail: "#0F172A",
+    taglineColor: "#7878a3",
+    nibDetail: "#FFFFFF",
   },
 } as const;
 
 /**
- * InkSync logo — fountain-pen nib whose tip curls into a sync arrow.
- * Transparent background by default; it adapts to whatever surface
- * it's placed on. Pass theme="dark" (or override individual colors)
- * when placing on a dark background.
+ * InkSync logo — a static badge: a full ring encircling a fountain-pen
+ * nib icon (indigo → cyan gradient). Transparent background by default,
+ * adapts to whatever surface it's placed on.
  */
 const InkSyncLogo: React.FC<InkSyncLogoProps> = ({
   width = 200,
   showWordmark = true,
   showTagline = true,
-  theme = "light",
+  theme = "dark",
   colorStart,
   colorEnd,
-  accentColor,
+  ringColor,
   wordmarkColor,
   wordmarkAccentColor,
   taglineColor,
@@ -68,14 +67,14 @@ const InkSyncLogo: React.FC<InkSyncLogoProps> = ({
   const resolved = {
     colorStart: colorStart ?? defaults.colorStart,
     colorEnd: colorEnd ?? defaults.colorEnd,
-    accentColor: accentColor ?? defaults.accentColor,
+    ringColor: ringColor ?? defaults.ringColor,
     wordmarkColor: wordmarkColor ?? defaults.wordmarkColor,
     wordmarkAccentColor: wordmarkAccentColor ?? defaults.wordmarkAccentColor,
     taglineColor: taglineColor ?? defaults.taglineColor,
     nibDetail: defaults.nibDetail,
   };
 
-  const viewWidth = showWordmark ? 640 : 200;
+  const viewWidth = showWordmark ? 560 : 200;
   const viewHeight = 200;
   const height = (width / viewWidth) * viewHeight;
   const gradientId = React.useId();
@@ -97,37 +96,32 @@ const InkSyncLogo: React.FC<InkSyncLogoProps> = ({
         </linearGradient>
       </defs>
 
-      {/* Icon: fountain-pen nib whose tip curls into a sync arrow */}
+      {/* Icon: nib badge — full ring + nib icon centered inside */}
       <g transform="translate(100,100)">
-        <path
-          d="M 0,-52 L 34,-6 C 40,4 40,20 30,32 L 6,58 L -6,58 L -30,32 C -40,20 -40,4 -34,-6 Z"
-          fill={`url(#${gradientId})`}
-        />
-        <line
-          x1="0"
-          y1="-30"
-          x2="0"
-          y2="50"
-          stroke={resolved.nibDetail}
-          strokeWidth={4}
-          strokeLinecap="round"
-          opacity={0.85}
-        />
-        <circle cx="0" cy="52" r="7" fill={resolved.nibDetail} opacity={0.9} />
-        <path
-          d="M -56,-14 A 56,56 0 1 1 -56,16"
-          fill="none"
-          stroke={resolved.accentColor}
-          strokeWidth={7}
-          strokeLinecap="round"
-        />
-        <path d="M -56,16 l -14,-4 l 6,-16 z" fill={resolved.accentColor} />
+        <circle cx="0" cy="0" r="52" fill="none" stroke={resolved.ringColor} strokeWidth={7} />
+        <g transform="scale(0.72)">
+          <path
+            d="M 0,-52 L 34,-6 C 40,4 40,20 30,32 L 6,58 L -6,58 L -30,32 C -40,20 -40,4 -34,-6 Z"
+            fill={`url(#${gradientId})`}
+          />
+          <line
+            x1="0"
+            y1="-30"
+            x2="0"
+            y2="50"
+            stroke={resolved.nibDetail}
+            strokeWidth={5}
+            strokeLinecap="round"
+            opacity={0.9}
+          />
+          <circle cx="0" cy="52" r="8" fill={resolved.nibDetail} opacity={0.9} />
+        </g>
       </g>
 
       {/* Wordmark */}
       {showWordmark && (
         <g
-          transform="translate(210,128)"
+          transform="translate(180,110)"
           fontFamily="'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
         >
           <text
@@ -166,20 +160,12 @@ Usage:
 
   import InkSyncLogo from "./InkSyncLogo";
 
-  // Light background (default)
-  <InkSyncLogo width={240} />
+  // Dark background (default)
+  <InkSyncLogo width={200} theme="dark" />
 
-  // Dark background
-  <InkSyncLogo width={240} theme="dark" />
+  // Icon only (badge), dark theme
+  <InkSyncLogo width={48} showWordmark={false} theme="dark" />
 
-  // Icon only, dark theme (e.g. dark navbar)
-  <InkSyncLogo width={40} showWordmark={false} theme="dark" />
-
-  // Auto-switch with next-themes / Tailwind dark mode
-  import { useTheme } from "next-themes";
-  const { resolvedTheme } = useTheme();
-  <InkSyncLogo width={220} theme={resolvedTheme === "dark" ? "dark" : "light"} />
-
-  // Fully custom colors (ignores theme defaults for whichever you set)
-  <InkSyncLogo width={220} colorStart="#7C3AED" colorEnd="#06B6D4" />
+  // Fully custom colors
+  <InkSyncLogo width={220} colorStart="#7C3AED" colorEnd="#06B6D4" ringColor="#0891B2" />
 */

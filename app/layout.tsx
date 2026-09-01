@@ -46,7 +46,7 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        <body className="min-h-full flex flex-col items-center justify-center">
+        <body className="min-h-full flex flex-col">
           <Provider>{children}</Provider>
         </body>
       </html>
