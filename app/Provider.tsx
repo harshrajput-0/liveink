@@ -1,19 +1,22 @@
-'use client';
+"use client";
 
-import InkSyncLoaderDraw from '@/components/icons/InkSyncLoaderDraw';
-import { getClerkUsers, getDocumentUsers } from '@/lib/actions/user.actions';
-import { useUser } from '@clerk/nextjs';
-import { ClientSideSuspense, LiveblocksProvider } from '@liveblocks/react/suspense';
-import { ReactNode } from 'react';
+import InkSyncLoaderDraw from "@/components/icons/InkSyncLoaderDraw";
+import { getClerkUsers, getDocumentUsers } from "@/lib/actions/user.actions";
+import { useUser } from "@clerk/nextjs";
+import {
+  ClientSideSuspense,
+  LiveblocksProvider,
+} from "@liveblocks/react/suspense";
+import { ReactNode } from "react";
 
-const Provider = ({ children }: { children: ReactNode}) => {
+const Provider = ({ children }: { children: ReactNode }) => {
   const { user: clerkUser } = useUser();
 
   return (
-    <LiveblocksProvider 
+    <LiveblocksProvider
       authEndpoint="/api/liveblocks-auth"
       resolveUsers={async ({ userIds }) => {
-        const users = await getClerkUsers({ userIds});
+        const users = await getClerkUsers({ userIds });
 
         return users;
       }}
@@ -22,7 +25,7 @@ const Provider = ({ children }: { children: ReactNode}) => {
           roomId,
           currentUser: clerkUser?.emailAddresses[0].emailAddress ?? "",
           text,
-        })
+        });
 
         return roomUsers;
       }}
@@ -31,7 +34,7 @@ const Provider = ({ children }: { children: ReactNode}) => {
         {children}
       </ClientSideSuspense>
     </LiveblocksProvider>
-  )
-}
+  );
+};
 
-export default Provider
+export default Provider;

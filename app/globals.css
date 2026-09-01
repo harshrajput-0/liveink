@@ -1,7 +1,6 @@
-@import 'tailwindcss';
-@import '@liveblocks/react-ui/styles.css';
-@import '../styles/dark-theme.css';
-
+@import "tailwindcss";
+@import "@liveblocks/react-ui/styles.css";
+@import "../styles/dark-theme.css";
 
 /* class-based dark mode, matching the old darkMode: ['class'] config */
 @custom-variant dark (&:where(.dark, .dark *));
@@ -12,19 +11,19 @@
   --breakpoint-2xl: 1400px;
 
   /* colors */
-  --color-blue-100: #C7C2ED;
-  --color-blue-400: #352C8F;
-  --color-blue-500: #3A2EAA;
+  --color-blue-100: #c7c2ed;
+  --color-blue-400: #352c8f;
+  --color-blue-500: #3a2eaa;
 
-  --color-red-400: #DD4F56;
-  --color-red-500: #DC4349;
+  --color-red-400: #dd4f56;
+  --color-red-500: #dc4349;
 
-  --color-dark-100: #09111F;
-  --color-dark-200: #0B1527;
-  --color-dark-300: #0F1C34;
-  --color-dark-350: #12213B;
-  --color-dark-400: #27344D;
-  --color-dark-500: #2E3D5B;
+  --color-dark-100: #09111f;
+  --color-dark-200: #0b1527;
+  --color-dark-300: #0f1c34;
+  --color-dark-350: #12213b;
+  --color-dark-400: #27344d;
+  --color-dark-500: #2e3d5b;
 
   /* font */
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
@@ -208,7 +207,6 @@
     @apply flex h-screen w-full flex-col items-center justify-center gap-10;
   }
 
-
   .document-ul {
     @apply flex w-full max-w-182.5 flex-col gap-5;
   }
@@ -277,31 +275,31 @@
   --lb-foreground-moderate: #fff;
 }
 
-.lb-button:where([data-variant='primary']) {
+.lb-button:where([data-variant="primary"]) {
   background-color: #161e30;
   color: #b4c6ee;
   padding: 8px;
 }
 
 .lb-button:where(
-    [data-variant='default']:not(
-        :is(
-            :enabled:hover,
-            :enabled:focus-visible,
-            [aria-expanded='true'],
-            [aria-selected='true']
-          )
-      )
-  ) {
+  [data-variant="default"]:not(
+    :is(
+      :enabled:hover,
+      :enabled:focus-visible,
+      [aria-expanded="true"],
+      [aria-selected="true"]
+    )
+  )
+) {
   color: #b4c6ee;
 }
 
 .lb-button:where(
-    :enabled:hover,
-    :enabled:focus-visible,
-    [aria-expanded='true'],
-    [aria-selected='true']
-  ) {
+  :enabled:hover,
+  :enabled:focus-visible,
+  [aria-expanded="true"],
+  [aria-selected="true"]
+) {
   --lb-button-background: #161e30;
 
   color: #b4c6ee;

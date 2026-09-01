@@ -86,7 +86,9 @@ const InkSyncLoaderDraw: React.FC<InkSyncLoaderDrawProps> = ({
           }}
         />
         {/* slit + tip appear once the fill lands */}
-        <g style={{ animation: `${detailAnim} ${speed}s ease-in-out infinite` }}>
+        <g
+          style={{ animation: `${detailAnim} ${speed}s ease-in-out infinite` }}
+        >
           <line
             x1="0"
             y1="-22"
