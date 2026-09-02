@@ -7,46 +7,46 @@ import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
+import { LiveblocksPlugin } from "@liveblocks/react-lexical";   // + add
 import React from "react";
 
-// Catch any errors that occur during Lexical updates and log them
-// or throw them as needed. If you don't throw them, Lexical will
-// try to recover gracefully without losing user data.
+import { liveblocksConfig } from "@liveblocks/react-lexical";
 
+
+
+// HistoryPlugin import removed — Liveblocks provides its own undo/redo
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
 }
 
 export function Editor() {
-  const initialConfig = {
-    namespace: "Editor",
-    nodes: [HeadingNode],
-    onError: (error: Error) => {
-      console.error(error);
-      throw error;
-    },
-    theme: Theme,
-  };
+const initialConfig = liveblocksConfig({
+  namespace: "MyEditor",
+  theme: {},
+  nodes: [],
+  onError: (err) => console.error(err),
+});
+
 
   return (
     <LexicalComposer initialConfig={initialConfig}>
-      <div className="editor-container size-full">
-        <ToolbarPlugin />
+      <LiveblocksPlugin>                                        {/* + wrap */}
+        <div className="editor-container size-full">
+          <ToolbarPlugin />
 
-        <div className="editor-inner h-275">
-          <RichTextPlugin
-            contentEditable={
-              <ContentEditable className="editor-input h-full" />
-            }
-            placeholder={<Placeholder />}
-            ErrorBoundary={LexicalErrorBoundary}
-          />
-          <HistoryPlugin />
-          <AutoFocusPlugin />
+          <div className="editor-inner h-275">
+            <RichTextPlugin
+              contentEditable={
+                <ContentEditable className="editor-input h-full" />
+              }
+              placeholder={<Placeholder />}
+              ErrorBoundary={LexicalErrorBoundary}
+            />
+            <AutoFocusPlugin />
+          </div>
         </div>
-      </div>
+      </LiveblocksPlugin>                                       {/* + close */}
     </LexicalComposer>
   );
 }

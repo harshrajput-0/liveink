@@ -25,7 +25,7 @@ export const createDocument = async ({
     };
 
     const usersAccesses: RoomAccesses = {
-      [email]: ["room:write"],
+      [userId]: ["room:write"],
     };
 
     const room = await liveblocks.createRoom(roomId, {
@@ -63,3 +63,4 @@ export const getDocument = async ({
     console.log( `Error fetching the room: ${error}` );
   }
 };
+

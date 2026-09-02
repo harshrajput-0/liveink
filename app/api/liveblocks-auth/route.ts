@@ -10,7 +10,6 @@ export async function POST() {
 
   const { id, firstName, lastName, emailAddresses, imageUrl } = clerkUser;
 
-  // Get the current user from your database
   const user = {
     id,
     info: {
@@ -22,10 +21,9 @@ export async function POST() {
     },
   };
 
-  // Identify the user and return the result
   const { status, body } = await liveblocks.identifyUser(
     {
-      userId: user.info.email,
+      userId: user.info.id,
       groupIds: [],
     },
     { userInfo: user.info },

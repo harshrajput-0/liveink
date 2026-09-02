@@ -20,7 +20,7 @@ const Document = async ( { params }: SearchParamProps) => {
 
   const room = await getDocument({
     roomId: id,
-    userId: clerkUser.emailAddresses[0].emailAddress,
+    userId: clerkUser.id,
   })
   return (
     <main className="flex w-full flex-col items-center">

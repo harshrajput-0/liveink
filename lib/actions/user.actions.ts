@@ -7,9 +7,7 @@ import { liveblocks } from "../liveblocks";
 export const getClerkUsers = async ({ userIds }: { userIds: string[] }) => {
   try {
     const client = await clerkClient();
-    const { data } = await client.users.getUserList({
-      emailAddress: userIds,
-    });
+    const { data } = await client.users.getUserList({ userId: userIds }); // was emailAddress
 
     const users = data.map((user: (typeof data)[number]) => ({
       id: user.id,
@@ -18,8 +16,8 @@ export const getClerkUsers = async ({ userIds }: { userIds: string[] }) => {
       avatar: user.imageUrl,
     }));
 
-    const sortedUsers = userIds.map((email) =>
-      users.find((user) => user.email === email),
+    const sortedUsers = userIds.map((id) =>
+      users.find((user) => user.id === id), // was user.email === email
     );
 
     return parseStringify(sortedUsers);
@@ -34,27 +32,33 @@ export const getDocumentUsers = async ({
   text,
 }: {
   roomId: string;
-  currentUser: string;
+  currentUser: string; // now expects Clerk user ID, not email
   text: string;
 }) => {
   try {
     const room = await liveblocks.getRoom(roomId);
 
-    const users = Object.keys(room.usersAccesses).filter(
-      (email) => email !== currentUser,
+    const userIds = Object.keys(room.usersAccesses).filter(
+      (id) => id !== currentUser, // was email !== currentUser
     );
 
     if (text.length) {
+      const client = await clerkClient();
+      const { data } = await client.users.getUserList({ userId: userIds });
+
       const lowerCaseText = text.toLowerCase();
+      const filteredIds = data
+        .filter((u) =>
+          `${u.firstName} ${u.lastName} ${u.emailAddresses[0].emailAddress}`
+            .toLowerCase()
+            .includes(lowerCaseText),
+        )
+        .map((u) => u.id);
 
-      const filteredUsers = users.filter((email: string) =>
-        email.toLowerCase().includes(lowerCaseText),
-      );
-
-      return parseStringify(filteredUsers);
+      return parseStringify(filteredIds);
     }
 
-    return parseStringify(users);
+    return parseStringify(userIds);
   } catch (error) {
     console.log(`Error fetching document users: ${error}`);
   }

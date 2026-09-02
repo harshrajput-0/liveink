@@ -3,8 +3,9 @@ import Image from 'next/image';
 
 const ActiveCollaborators = () => {
 const others = useOthers();
+console.log("LIVEBLOCKS OTHERS:", others);
 
-const collaborators = others.map((other) => other.info);
+const collaborators = others.filter((other) => other.info).map((other) => other.info);
 
   return (
     <ul className='hidden items-center justify-end -space-x-3 overflow-hidden sm:flex'>
