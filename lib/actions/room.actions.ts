@@ -5,6 +5,7 @@ import { RoomAccesses } from "@liveblocks/node";
 import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
 import { parseStringify } from "../utils";
+import { clerkClient } from "@clerk/nextjs/server";
 
 interface CreateDocumentParams {
   userId: string;
@@ -31,7 +32,7 @@ export const createDocument = async ({
     const room = await liveblocks.createRoom(roomId, {
       metadata,
       usersAccesses,
-      defaultAccesses: [],
+      defaultAccesses: ["room:write"], // Temporarily grant all user with write permission
     });
 
     revalidatePath("/");
@@ -64,3 +65,66 @@ export const getDocument = async ({
   }
 };
 
+export const updateDocumentAccess = async ({
+  roomId,
+  email,
+  userType,
+  updatedBy,
+}: {
+  roomId: string;
+  email: string;
+  userType: "creator" | "editor" | "viewer";
+  updatedBy: { name: string };
+}) => {
+  try {
+    const client = await clerkClient();
+    const { data } = await client.users.getUserList({ emailAddress: [email] });
+
+    if (!data.length) throw new Error("No user found with that email");
+    const invitedUser = data[0];
+
+    const usersAccesses: RoomAccesses = {
+      [invitedUser.id]: userType === "viewer" ? ["room:read", "room:presence:write"] : ["room:write"],
+    };
+
+    const room = await liveblocks.updateRoom(roomId, {
+      usersAccesses,
+    });
+
+    revalidatePath(`/documents/${roomId}`);
+    return parseStringify(room);
+  } catch (error) {
+    console.log(`Error updating document access: ${error}`);
+  }
+};
+
+export const removeCollaborator = async ({
+  roomId,
+  email,
+}: {
+  roomId: string;
+  email: string;
+}) => {
+  try {
+    const client = await clerkClient();
+    const { data } = await client.users.getUserList({ emailAddress: [email] });
+    if (!data.length) return;
+    const targetUser = data[0];
+
+    const room = await liveblocks.getRoom(roomId);
+
+    // don't let the creator remove themselves
+    if (room.metadata.creatorId === targetUser.id) return;
+
+    const room2 = await liveblocks.updateRoom(roomId, {
+      usersAccesses: {
+        [targetUser.id]: null, // setting to null removes that user's access
+      },
+    });
+
+    revalidatePath(`/documents/${roomId}`);
+    return parseStringify(room2);
+  } catch (error) {
+    console.log(`Error removing collaborator: ${error}`);
+  }
+};
