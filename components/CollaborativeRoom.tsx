@@ -7,15 +7,21 @@ import {
 import { Header } from "@/components/navigation/Header";
 import { UserButton } from "@clerk/nextjs";
 import ActiveCollaborators from "./ActiveCollaborators";
+import { Editor } from "./ui/editor/Editor";
 
 interface CollaborativeRoomProps {
-  children: React.ReactNode;
+  roomId: string,
+  roomMetadata: {
+    createrId: string,
+    email: string,
+    title: string,
+  }
 }
 
-const CollaborativeRoom = ({ children }: CollaborativeRoomProps) => {
+const CollaborativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => {
   return (
     <RoomProvider
-      id="my-room"
+      id={roomId}
       initialPresence={{}}
       initialStorage={{}}
     >
@@ -30,7 +36,10 @@ const CollaborativeRoom = ({ children }: CollaborativeRoomProps) => {
             </div>
           </Header>
 
-          {children}
+
+      <Editor></Editor>
+
+
         </div>
       </ClientSideSuspense>
     </RoomProvider>

@@ -1,5 +1,4 @@
 import { useOthers } from '@liveblocks/react/suspense'
-import React from 'react'
 import Image from 'next/image';
 
 const ActiveCollaborators = () => {
