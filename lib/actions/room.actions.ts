@@ -12,6 +12,7 @@ interface CreateDocumentParams {
   email: string;
 }
 
+// ==========================================| CREATE DOCUMENTS |==========================================
 export const createDocument = async ({
   userId,
   email,
@@ -43,6 +44,7 @@ export const createDocument = async ({
   }
 };
 
+// ==========================================| GET DOCUMENT |==========================================
 export const getDocument = async ({
   roomId,
   userId,
@@ -65,6 +67,19 @@ export const getDocument = async ({
   }
 };
 
+
+// ==========================================| GET DOCUMENTS |==========================================
+export const getDocuments = async (email: string) => {
+  try {
+    const rooms = await liveblocks.getRooms({ userId: email });
+
+    return parseStringify(rooms);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// ==========================================| UPDATE DOCUMENT |==========================================
 export const updateDocument = async(
   roomid: string,
   title: string
@@ -85,6 +100,7 @@ export const updateDocument = async(
   }
 }
 
+// ==========================================| UPDATE DOCUMENTS ACCESS |==========================================
 export const updateDocumentAccess = async ({
   roomId,
   email,
@@ -118,6 +134,7 @@ export const updateDocumentAccess = async ({
   }
 };
 
+// ==========================================| REMOVE COLLABORATOR |==========================================
 export const removeCollaborator = async ({
   roomId,
   email,
