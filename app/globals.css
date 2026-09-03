@@ -162,18 +162,6 @@
     @apply flex w-full max-w-182.5 flex-col items-center justify-center gap-5 rounded-lg bg-dark-200 px-10 py-8;
   }
 
-  .document-title-input {
-    @apply min-w-19.5! flex-1! border-none! bg-transparent! px-0! text-left! text-base! font-semibold! leading-6! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:text-black! sm:text-xl! md:text-center!;
-  }
-
-  .document-title {
-    @apply line-clamp-1 border-dark-400 text-base font-semibold leading-6 sm:pl-0 sm:text-xl;
-  }
-
-  .view-only-tag {
-    @apply rounded-md bg-dark-400/50 px-2 py-0.5 text-xs text-blue-100/50;
-  }
-
   .share-input {
     @apply h-11! flex-1! border-none! bg-dark-400! focus-visible:ring-0! focus-visible:ring-offset-0!;
   }
@@ -207,10 +195,6 @@
     @apply flex w-full max-w-182.5 flex-col gap-5;
   }
 
-  /* ======================== CollaborativeRoom */
-  .collaborative-room {
-    @apply flex size-full max-h-screen flex-1 flex-col items-center overflow-hidden;
-  }
 }
 
 /* ======================== Clerk Override */
