@@ -6,6 +6,7 @@ import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
 import { parseStringify } from "../utils";
 import { clerkClient } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 interface CreateDocumentParams {
   userId: string;
@@ -165,3 +166,16 @@ export const removeCollaborator = async ({
     console.log(`Error removing collaborator: ${error}`);
   }
 };
+
+
+
+// ==========================================| DELETE DOCUMENT |==========================================
+export const deleteDocument = async (roomId: string) => {
+  try {
+    await liveblocks.deleteRoom(roomId);
+    revalidatePath("/");
+    redirect("/")
+  } catch (error) {
+    console.log(`Unable to delete room ${error}`)
+  }
+}
