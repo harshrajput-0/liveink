@@ -12,17 +12,9 @@ import { Input } from "./ui/input";
 import { Pencil } from "lucide-react";
 import { updateDocument } from "@/lib/actions/room.actions";
 
-interface CollaborativeRoomProps {
-  roomId: string,
-  roomMetadata: {
-    createrId: string,
-    email: string,
-    title: string,
-  }
-}
 
-const CollaborativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => {
-  const currentUserType = "editor";
+
+const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
 
   const [documentTitle, setDocumentTitle] = useState(roomMetadata.title)
   const [editing, setEditing] = useState(false);
@@ -32,7 +24,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => 
   const inputRef = useRef<HTMLInputElement>(null);
 
 
-// ===| UPDATE TITLE HANDLER |------------------------------------------------------
+  // ===| UPDATE TITLE HANDLER |------------------------------------------------------
   const updateTitleHandler = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       setLoading(true);
@@ -126,7 +118,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => 
           </Header>
 
 
-          <Editor></Editor>
+          <Editor roomId={roomId} currentUserType={currentUserType} />
 
 
         </div>

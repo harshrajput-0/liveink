@@ -18,11 +18,8 @@ import {
 
 import { Trash2, AlertCircle } from "lucide-react";
 
-type DeleteModalProps = {
-    roomId: string;
-};
 
-export const DeleteModal = ({roomId}: DeleteModalProps) => {
+export const DeleteModal = ({ roomId }: DeleteModalProps) => {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -54,7 +51,7 @@ export const DeleteModal = ({roomId}: DeleteModalProps) => {
 
                 <Button variant="destructive" onClick={deleteDocumentHandler} className="gradient-red w-full">
                     {loading ? "Deleting..." : "Delete"}
-                </Button> 
+                </Button>
             </DialogContent>
         </Dialog>
     )
