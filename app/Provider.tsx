@@ -7,7 +7,6 @@ import {
   ClientSideSuspense,
   LiveblocksProvider,
 } from "@liveblocks/react/suspense";
-import { Divide } from "lucide-react";
 import { ReactNode } from "react";
 
 const Provider = ({ children }: { children: ReactNode }) => {

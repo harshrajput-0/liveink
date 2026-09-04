@@ -12,7 +12,7 @@ import { Input } from "./ui/input";
 import { Pencil, Loader2 } from "lucide-react";
 import { updateDocument } from "@/lib/actions/room.actions";
 import InkSyncLoaderDraw from "./icons/InkSyncLoaderDraw";
-
+import { CollaborativeRoomProps } from "@/types/types";
 
 
 const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {

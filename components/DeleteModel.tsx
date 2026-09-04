@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { Trash2, AlertCircle } from "lucide-react";
+import { DeleteModalProps } from "@/types/types";
 
 
 export const DeleteModal = ({ roomId }: DeleteModalProps) => {

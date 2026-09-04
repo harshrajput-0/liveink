@@ -1,16 +1,18 @@
-declare type AddDocumentBtnProps = {
+import { ThreadData } from "@liveblocks/client";
+
+export type AddDocumentBtnProps = {
   userId: string;
   email: string;
 };
 
-declare type UserType = "creator" | "editor" | "viewer";
+export type UserType = "creator" | "editor" | "viewer";
 
-type EditorProps = {
+export type EditorProps = {
   roomId: string;
   currentUserType: UserType;
 };
 
-declare type User = {
+export type User = {
   id: string;
   name: string;
   email: string;
@@ -19,7 +21,7 @@ declare type User = {
   userType?: UserType;
 };
 
-declare type CollaborativeRoomProps = {
+export type CollaborativeRoomProps = {
   roomId: string;
   roomMetadata: {
     createrId: string;
@@ -30,6 +32,10 @@ declare type CollaborativeRoomProps = {
   currentUserType: UserType;
 };
 
-declare type DeleteModalProps = {
+export type DeleteModalProps = {
   roomId: string;
+};
+
+export type ThreadWrapperProps = {
+  thread: ThreadData;
 };

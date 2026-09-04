@@ -1,15 +1,14 @@
 // Define Liveblocks types for your application
 // https://liveblocks.io/docs/api-reference/liveblocks-react#Typing-your-data
 
+import type { BaseMetadata } from "@liveblocks/client";
+
 declare global {
   interface Liveblocks {
-    // Each user's Presence, for useMyPresence, useOthers, etc.
     Presence: Record<string, never>;
 
-    // The Storage tree for the room, for useMutation, useStorage, etc.
     Storage: Record<string, never>;
 
-    // Custom user info set when authenticating with a secret key
     UserMeta: {
       id: string;
       info: {
@@ -21,13 +20,10 @@ declare global {
       };
     };
 
-    // Custom events, for useBroadcastEvent, useEventListener
     RoomEvent: never;
 
-    // Custom metadata set on threads, for useThreads, useCreateThread, etc.
-    ThreadMetadata: object;
+    ThreadMetadata: BaseMetadata;
 
-    // Custom room info set with resolveRoomsInfo, for useRoomInfo
     RoomInfo: object;
   }
 }

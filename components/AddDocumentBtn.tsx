@@ -4,6 +4,7 @@ import { createDocument } from '@/lib/actions/room.actions';
 import { Button } from './ui/button'
 import { Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { AddDocumentBtnProps } from '@/types/types';
 
 
 const AddDocumentBtn = ({ userId, email }: AddDocumentBtnProps) => {
