@@ -7,6 +7,7 @@ import {
   ClientSideSuspense,
   LiveblocksProvider,
 } from "@liveblocks/react/suspense";
+import { Divide } from "lucide-react";
 import { ReactNode } from "react";
 
 const Provider = ({ children }: { children: ReactNode }) => {
@@ -30,7 +31,11 @@ const Provider = ({ children }: { children: ReactNode }) => {
         return roomUsers;
       }}
     >
-      <ClientSideSuspense fallback={<InkSyncLoaderDraw />}>
+      <ClientSideSuspense fallback={
+      <div className="flex h-screen w-full items-center justify-center">
+        <InkSyncLoaderDraw />
+      </div>
+    }>
         {children}
       </ClientSideSuspense>
     </LiveblocksProvider>

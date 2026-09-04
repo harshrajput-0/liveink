@@ -9,8 +9,9 @@ import { UserButton } from "@clerk/nextjs";
 import ActiveCollaborators from "./ActiveCollaborators";
 import { Editor } from "./ui/editor/Editor";
 import { Input } from "./ui/input";
-import { Pencil } from "lucide-react";
+import { Pencil, Loader2 } from "lucide-react";
 import { updateDocument } from "@/lib/actions/room.actions";
+import InkSyncLoaderDraw from "./icons/InkSyncLoaderDraw";
 
 
 
@@ -40,7 +41,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
       } catch (error) {
         console.log(error);
       }
-
+      setLoading(false);
       setEditing(false);
     }
   }
@@ -75,7 +76,10 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
       initialPresence={{}}
       initialStorage={{}}
     >
-      <ClientSideSuspense fallback={<div>Loading</div>}>
+      <ClientSideSuspense fallback={
+        <div className="flex items-center justify-center w-full h-screen">
+        <InkSyncLoaderDraw />
+      </div>}>
         <div className="flex size-full max-h-screen flex-1 flex-col items-center overflow-hidden">
           <Header className="sticky top-0 left-0">
             <div className="flex w-fit items-center justify-center">
@@ -107,7 +111,13 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
                 <p className="rounded-md bg-dark-400/50 px-2 py-0.5 text-xs text-blue-100/50">View Only</p>
               )}
 
-              {loading && <p className="text-sm text-gray-400">saving...</p>}
+              {loading && (
+                <Loader2
+                  size={16}
+                  aria-label="saving"
+                  className="ml-3 animate-spin text-blue-100"
+                />
+              )}
             </div>
 
 

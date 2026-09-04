@@ -16,6 +16,8 @@ import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin"
 
 import { liveblocksConfig } from "@liveblocks/react-lexical";
 
+import InkSyncLoaderDraw from "@/components/icons/InkSyncLoaderDraw";
+
 function Placeholder() {
   return (
     <div
@@ -49,7 +51,11 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
         </div>
 
         <div className="flex h-[calc(100vh-140px)] w-full flex-col items-center justify-start overflow-auto px-5 pt-5 xl:pt-10">
-          {status === "not-loaded" || status === "loading" ? "Loging Eidtor" : (
+          {status === "not-loaded" || status === "loading" ? (
+            <div className="flex h-full w-full flex-1 items-center justify-center">
+              <InkSyncLoaderDraw />
+            </div>
+          ) : (
 
             <div className="relative h-full w-full max-w-200 rounded-sm bg-dark-200">
               <RichTextPlugin
