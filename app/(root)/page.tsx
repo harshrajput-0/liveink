@@ -25,7 +25,7 @@ const Home = async () => {
     redirect("/sign-in");
   }
 
-  const roomDocuments = await getDocuments(clerkUser?.emailAddresses[0].emailAddress);
+  const roomDocuments = await getDocuments(clerkUser.id); // Same bug email -> clerkUser.id
 
 
   return (
