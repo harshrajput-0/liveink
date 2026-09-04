@@ -8,6 +8,7 @@ import { getDocuments } from "@/lib/actions/room.actions";
 import Link from "next/link";
 import { dateConverter } from "@/lib/utils";
 
+import { DeleteModal } from "@/components/DeleteModel";
 
 type RoomDocument = {
   id: string;
@@ -60,7 +61,7 @@ const Home = async () => {
                     <p className="text-sm font-light text-blue-100">Created At {dateConverter(createdAt)}</p>
                   </div>
                 </Link>
-                {/* <DeleteModal roomId={id} /> */}
+                <DeleteModal roomId={id} />
               </li>
             ))}
 
