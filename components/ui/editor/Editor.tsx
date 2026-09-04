@@ -17,7 +17,13 @@ import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin"
 import { liveblocksConfig } from "@liveblocks/react-lexical";
 
 function Placeholder() {
-  return <div className="editor-placeholder">Enter some rich text...</div>;
+  return (
+    <div
+      className="pointer-events-none absolute left-10 top-10 select-none overflow-hidden text-ellipsis text-[15px] text-blue-100"
+    >
+      Enter some rich text...
+    </div>
+  );
 }
 
 export function Editor({ roomId, currentUserType }: EditorProps) {
@@ -38,28 +44,30 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <LiveblocksPlugin>                                        {/* + wrap */}
-        <div className="editor-container size-full">
+        <div className="w-full">
           <ToolbarPlugin />
         </div>
 
-<div className="edtior-wrapper flex flex-col items-center justify-start">
-  {status === "not-loaded" || status === "loading" ? "Loging Eidtor" : (
+        <div className="flex h-[calc(100vh-140px)] w-full flex-col items-center justify-start overflow-auto px-5 pt-5 xl:pt-10">
+          {status === "not-loaded" || status === "loading" ? "Loging Eidtor" : (
 
-          <div className=" h-275">
-            <RichTextPlugin
-              contentEditable={
-                <ContentEditable className="editor-input h-full" />
-              }
-              placeholder={<Placeholder />}
-              ErrorBoundary={LexicalErrorBoundary}
-            />
+            <div className="relative h-full w-full max-w-200 rounded-sm bg-dark-200">
+              <RichTextPlugin
+                contentEditable={
+                  <ContentEditable
+                    className="relative h-full w-full resize-none p-10 text-[15px] text-blue-100 outline-none caret-[#444] tab-1"
+                  />
+                }
+                placeholder={<Placeholder />}
+                ErrorBoundary={LexicalErrorBoundary}
+              />
 
-            {currentUserType === "editor" && <FloatingToolbarPlugin />}
-            <HistoryPlugin />
-            <AutoFocusPlugin />
-          </div>
-  )}
-</div>
+              {currentUserType === "editor" && <FloatingToolbarPlugin />}
+              <HistoryPlugin />
+              <AutoFocusPlugin />
+            </div>
+          )}
+        </div>
 
       </LiveblocksPlugin>                                       {/* + close */}
     </LexicalComposer>
