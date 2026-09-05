@@ -13,6 +13,7 @@ import { Pencil, Loader2 } from "lucide-react";
 import { updateDocument } from "@/lib/actions/room.actions";
 import InkSyncLoaderDraw from "./icons/InkSyncLoaderDraw";
 import { CollaborativeRoomProps } from "@/types/types";
+import ShareModal from "./ShareModal";
 
 
 const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
@@ -122,6 +123,14 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
 
 
             <div className="flex items-center gap-2 lg:gap-4">
+
+              {/* share mode here */}
+              <ShareModal
+              roomId={roomId}
+              collaborators={users}
+              creatorId={roomMetadata.createrId}
+              currentUserType={currentUserType}
+               />
               <ActiveCollaborators />
               <UserButton />
             </div>

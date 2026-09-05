@@ -8,7 +8,7 @@ import { getDocuments } from "@/lib/actions/room.actions";
 import Link from "next/link";
 import { dateConverter } from "@/lib/utils";
 
-import { DeleteModal } from "@/components/DeleteModel";
+import { DeleteModal } from "@/components/DeleteModal";
 
 type RoomDocument = {
   id: string;

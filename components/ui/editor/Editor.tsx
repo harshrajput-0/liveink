@@ -17,7 +17,7 @@ import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin"
 import { liveblocksConfig } from "@liveblocks/react-lexical";
 
 import InkSyncLoaderDraw from "@/components/icons/InkSyncLoaderDraw";
-import { DeleteModal } from "@/components/DeleteModel";
+import { DeleteModal } from "@/components/DeleteModal";
 import { EditorProps } from "@/types/types";
 import Comments from "@/components/Comments";
 import { useThreads } from "@liveblocks/react/suspense";

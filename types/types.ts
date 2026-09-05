@@ -28,7 +28,7 @@ export type CollaborativeRoomProps = {
     email: string;
     title: string;
   };
-  users: User;
+  users: User[];
   currentUserType: UserType;
 };
 
@@ -38,4 +38,25 @@ export type DeleteModalProps = {
 
 export type ThreadWrapperProps = {
   thread: ThreadData;
+};
+
+export type CollaboratorProps = {
+  roomId: string;
+  email: string;
+  creatorId: string;
+  collaborator: User;
+  user: User;
+};
+
+export type UserTypeSelectorParams = {
+  userType: string;
+  setUserType: React.Dispatch<React.SetStateAction<UserType>>;
+  onClickHandler?: (value: string) => void;
+};
+
+export type ShareDocumentDialogProps = {
+  roomId: string;
+  collaborators: User[];
+  creatorId: string;
+  currentUserType: UserType;
 };
