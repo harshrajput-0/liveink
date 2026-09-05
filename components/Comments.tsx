@@ -23,8 +23,8 @@ const ThreadWrapper = ({ thread }: ThreadWrapperProps) => {
 const Comments = () => {
     const { threads } = useThreads();
   return (
-    <div className='comment-container'>
-        <Composer className='comment-composer' />
+    <div className='mb-10 flex w-full flex-col items-center justify-center gap-4 lg:w-fit'>
+        <Composer className='w-full max-w-200 border border-dark-300 bg-dark-200 shadow-sm lg:w-87.5' /> 
 
         {threads.map((thread) => (
             <ThreadWrapper key={thread.id} thread={thread} />

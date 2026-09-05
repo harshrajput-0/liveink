@@ -39,24 +39,24 @@ const Home = async () => {
       </Header>
 
       {roomDocuments.data.length > 0 ? (
-        <div className="document-list-container">
-          <div className="document-list-title">
+        <div className="flex w-full flex-col items-center gap-10 mb-10">
+          <div className="flex w-full max-w-182.5 item-end justify-between">
             <h3 className="text-28-semibold">All Documents</h3>
             <AddDocumentBtn
               userId={clerkUser.id}
               email={clerkUser.emailAddresses[0].emailAddress} />
           </div>
 
-          <ul className="document-ul">
+          <ul className="flex w-full max-w-182.5 flex-col gap-4">
             {roomDocuments.data.map(({ id, metadata, createdAt }: RoomDocument) => (
-              <li key={id} className="document-list-item">
-                <Link href={`/documents/${id}`} className="document-list-item">
-                  <div className="hidden rounded-md bg-dark-500 p-2 sm:block">
+              <li key={id} className="flex items-center justify-between gap-4 rounded-lg border border-dark-300 bg-dark-200 p-4 shadow-md transition-colors hover:bg-dark-300 sm:p-5">
+                <Link href={`/documents/${id}`} className="flex min-w-0 flex-1 items-center gap-4">
+                  <div className="hidden shrink-0 rounded-md bg-dark-500 p-2 sm:block">
 
                     <FileText size={26} />
 
                   </div>
-                  <div className="space-y-1">
+                  <div className="min-w-0 space-y-1">
                     <p className="line-clamp-1 text-lg">{metadata.title}</p>
                     <p className="text-sm font-light text-blue-100">Created At {dateConverter(createdAt)}</p>
                   </div>
@@ -70,10 +70,15 @@ const Home = async () => {
 
       ) : (
 
-        <div className="document-list-empty">
-          <FileText size={26} className="max-auto" />
-          <h3 className="text-28-semibold text-center">No documents</h3>
-          <p className="text-center text-sm font-light text-blue-100">Creaate document to start writing and collaborating</p>
+        <div className="flex w-full max-w-182.5 flex-col items-center justify-center gap-5 rounded-lg border border-dark-300 bg-dark-200 px-10 py-12 shadow-md">
+          <div className="flex size-14 items-center justify-center rounded-full bg-dark-500">
+            <FileText size={26} className="max-auto" />
+          </div>
+          <div className="flex flex-col items-center gap-2 text-center">
+            <h3 className="text-28-semibold text-center">No documents</h3>
+            <p className="text-center text-sm font-light text-blue-100">Creaate document to start writing and collaborating</p>
+          </div>
+
           <AddDocumentBtn
             userId={clerkUser.id}
             email={clerkUser.emailAddresses[0].emailAddress} />

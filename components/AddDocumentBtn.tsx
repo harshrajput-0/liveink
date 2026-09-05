@@ -26,7 +26,7 @@ const AddDocumentBtn = ({ userId, email }: AddDocumentBtnProps) => {
         setLoading(false);
     };
     return (
-        <Button type='submit' onClick={addDocumentHandler} disabled={loading} className='gradient-blue flex dap-1 shadow-md'>\
+        <Button type='submit' onClick={addDocumentHandler} disabled={loading} className='gradient-blue flex dap-1 shadow-md'>
         {loading ? <Loader2 size={24} className="animate-spin" /> : <Plus size={24} />}
             <p className='hidden sm:block'>
                 {loading ? "Create document..." : "Create blank document"}

@@ -67,7 +67,7 @@ const Collaborator = ({ roomId, creatorId, collaborator, email, user }: Collabor
                         type='submit'
                         disabled={loading}
                         onClick={() => removeCollaboratorHandler(collaborator.email)}
-                        className='remove-btn'>
+                        className='rounded-lg bg-transparent px-2 text-red-500 transition-colors hover:bg-red-500/10 hover:text-red-400'>
                         Remove
                     </Button>
                 </div>

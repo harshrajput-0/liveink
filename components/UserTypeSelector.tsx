@@ -16,13 +16,13 @@ const UserTypeSelector = ({ userType, setUserType, onClickHandler }: UserTypeSel
     }
     return (
         <Select value={userType} onValueChange={(type: UserType) => accessChangeHandler(type)}>
-            <SelectTrigger >
+            <SelectTrigger className='w-fit! h-9! items-center! border! border-dark-500! bg-transparent! text-blue-100! leading-none! focus-visible:ring-1'>
                 <SelectValue />
             </SelectTrigger>
 
-            <SelectContent className='border-none bg-dark-200'>
-                <SelectItem value='viewer' className='cursor-pointer! bg-dark-200! text-blue-100! focus:bg-dark-300! hover:bg-dark-300! focus:text-blue-100!'>can view</SelectItem>
-                <SelectItem value='editor' className='cursor-pointer! bg-dark-200! text-blue-100! focus:bg-dark-300! hover:bg-dark-300! focus:text-blue-100!'>can edit</SelectItem>
+            <SelectContent position='popper' align='end' sideOffset={6} className='border-none bg-dark-200! shadow-lg!'>
+                <SelectItem value='viewer' className='my-0.5! cursor-pointer! rounded-full! bg-dark-200! py-2! pl-3! pr-8! text-blue-100! focus:bg-dark-300! hover:bg-dark-300! focus:text-blue-100!'>can view</SelectItem>
+                <SelectItem value='editor' className='my-0.5! cursor-pointer! rounded-full! bg-dark-200! py-2! pl-3! pr-8! text-blue-100! focus:bg-dark-300! hover:bg-dark-300! focus:text-blue-100!'>can edit</SelectItem>
             </SelectContent>
 
         </Select>
