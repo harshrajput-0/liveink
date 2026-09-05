@@ -29,15 +29,22 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
     const [email, setEmail] = useState("")
     const [userType, setUserType] = useState<UserType>("viewer");
 
-    const shareDcoumentHandler = async() => {
+    const shareDcoumentHandler = async () => {
       setLoading(true);
 
-      await updateDocumentAccess({
+      try {
+        await updateDocumentAccess({
         roomId,
         email,
         userType: userType as UserType,
         updatedBy: user.info,
-      })
+      });
+      setEmail("");
+      } catch (error) {
+        console.log(error);
+      }
+
+      setLoading(false);
     };
 
 
@@ -73,8 +80,8 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
             />
         </div>
 
-        <Button type="submit" onClick={shareDcoumentHandler} className="gradient-blue flex h-full gap-1 px-5" disabled={loading}>
-          {loading ? "Sending..." : "Invite"}
+        <Button type="submit" onClick={shareDcoumentHandler} className="gradient-blue flex h-full gap-1 px-5" disabled={loading || !email}>
+          {loading ? "Sending..." : "Invite"}     
         </Button>
     </div>
 

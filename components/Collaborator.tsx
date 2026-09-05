@@ -63,7 +63,11 @@ const Collaborator = ({ roomId, creatorId, collaborator, email, user }: Collabor
                         setUserType={setUserType}
                         onClickHandler={shareDcoumentHandler}
                     />
-                    <Button type='submit' onClick={() => removeCollaboratorHandler(collaborator.email)}>
+                    <Button
+                        type='submit'
+                        disabled={loading}
+                        onClick={() => removeCollaboratorHandler(collaborator.email)}
+                        className='remove-btn'>
                         Remove
                     </Button>
                 </div>

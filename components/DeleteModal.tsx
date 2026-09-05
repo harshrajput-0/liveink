@@ -50,7 +50,7 @@ export const DeleteModal = ({ roomId }: DeleteModalProps) => {
                     <DialogDescription>Are you sure you want to delete this document? This action cannot be undone</DialogDescription>
                 </DialogHeader>
 
-                <Button variant="destructive" onClick={deleteDocumentHandler} className="gradient-red w-full">
+                <Button variant="destructive" onClick={deleteDocumentHandler} disabled={loading} className="gradient-red w-full">
                     {loading ? "Deleting..." : "Delete"}
                 </Button>
             </DialogContent>

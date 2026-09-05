@@ -72,6 +72,8 @@ const Home = async () => {
 
         <div className="document-list-empty">
           <FileText size={26} className="max-auto" />
+          <h3 className="text-28-semibold text-center">No documents</h3>
+          <p className="text-center text-sm font-light text-blue-100">Creaate document to start writing and collaborating</p>
           <AddDocumentBtn
             userId={clerkUser.id}
             email={clerkUser.emailAddresses[0].emailAddress} />

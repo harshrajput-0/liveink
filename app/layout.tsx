@@ -39,7 +39,8 @@ export default function RootLayout({
         lang="en"
         className={cn(
           "h-full",
-          "a/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fntialiased",
+          // "a/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fntialiased",
+          "antialised",
           geistSans.variable,
           geistMono.variable,
           "font-sans",
