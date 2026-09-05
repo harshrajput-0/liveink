@@ -1,4 +1,3 @@
-
 import CollaborativeRoom from "@/components/CollaborativeRoom";
 import { getDocument } from "@/lib/actions/room.actions";
 import { getClerkUsers } from "@/lib/actions/user.actions";
@@ -29,9 +28,9 @@ const Document = async ( { params }: SearchParamProps) => {
 
   const userData = users.map((user: User) => ({
     ...user,
-    userType: room.usersAccesses[clerkUser.id]?.includes("room:write") ? "editor" : "editor",
+    userType: room.usersAccesses[user.id]?.includes("room:write") ? "editor" : "viewer",
   }))
-  const currentUserType = room.usersAccesses[clerkUser.id]?.includes(room.write) ? "editor" : "editor";
+  const currentUserType = room.usersAccesses[clerkUser.id]?.includes("room.write") ? "editor" : "viewer";
 
   return (
     <main className="flex w-full flex-col items-center">

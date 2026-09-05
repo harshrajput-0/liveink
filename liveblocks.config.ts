@@ -25,6 +25,15 @@ declare global {
     ThreadMetadata: BaseMetadata;
 
     RoomInfo: object;
+
+    ActivitiesData: {
+      $documentAccess: {
+        userType: string;
+        title: string;
+        updatedBy: string;
+        avatar: string;
+      }
+    }
   }
 }
 

@@ -45,7 +45,7 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
       console.error(error);
       throw error;
     },
-    editable: true,
+    editable: currentUserType === "editor",
   });
 
 

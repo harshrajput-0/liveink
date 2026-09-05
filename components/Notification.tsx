@@ -59,16 +59,22 @@ const Notification = () => {
                                     ),
 
                                     $documentAccess: (props) => (
-                                        <InboxNotification.Custom {...props} title={props.inboxNotification.activities[0].data.title}>
-                                            aside={<InboxNotification.Icon className="bg-transparent">
-                                                <Image
-                                                    src={props.inboxNotification.activities[0].data.avatar as string || ""}
-                                                    width={36}
-                                                    height={36}
-                                                    alt="avatar"
-                                                    className="rounded-full"
-                                                />
-                                            </InboxNotification.Icon>}
+                                        <InboxNotification.Custom
+                                            {...props}
+                                            title={props.inboxNotification.activities[0].data.title}
+                                            aside={
+                                                <InboxNotification.Icon className="bg-transparent">
+                                                    {props.inboxNotification.activities[0].data.avatar ? (
+                                                        <Image
+                                                            src={props.inboxNotification.activities[0].data.avatar as string || ""}
+                                                            width={36}
+                                                            height={36}
+                                                            alt="avatar"
+                                                            className="rounded-full"
+                                                        />
+                                                    ) : null}
+                                                </InboxNotification.Icon>
+                                            }>
                                             {props.children}
                                         </InboxNotification.Custom>
                                     )

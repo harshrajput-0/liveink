@@ -24,7 +24,7 @@ export type User = {
 export type CollaborativeRoomProps = {
   roomId: string;
   roomMetadata: {
-    createrId: string;
+    creatorId: string;
     email: string;
     title: string;
   };

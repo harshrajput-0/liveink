@@ -22,7 +22,7 @@ export const createDocument = async ({
 
   try {
     const metadata = {
-      createId: userId,
+      creatorId: userId,
       email,
       title: "Untitled",
     };
@@ -111,7 +111,7 @@ export const updateDocumentAccess = async ({
   roomId: string;
   email: string;
   userType: "creator" | "editor" | "viewer";
-  updatedBy: { name: string };
+  updatedBy: { name: string, avatar?: string };
 }) => {
   try {
     const client = await clerkClient();
@@ -127,6 +127,24 @@ export const updateDocumentAccess = async ({
     const room = await liveblocks.updateRoom(roomId, {
       usersAccesses,
     });
+
+    // Notification when user is invited
+    if (room) {
+      const documentTitle = room.metadata?.title as string;
+
+      await liveblocks.triggerInboxNotification({
+        userId: invitedUser.id,
+        kind: "$documentAccess",
+        subjectId: nanoid(),
+        activityData: {
+          userType,
+          title: `${updatedBy.name} has invited you to collaborate on ${documentTitle}`,
+          updatedBy: updatedBy.name,
+          avatar: updatedBy.avatar ?? "",
+        },
+        roomId,
+      });
+    }
 
     revalidatePath(`/documents/${roomId}`);
     return parseStringify(room);
