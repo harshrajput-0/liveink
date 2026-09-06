@@ -19,6 +19,7 @@ import { liveblocksConfig } from "@liveblocks/react-lexical";
 import InkSyncLoaderDraw from "@/components/icons/InkSyncLoaderDraw";
 import { DeleteModal } from "@/components/DeleteModal";
 import { EditorProps } from "@/types/types";
+import { canEditContent } from "@/lib/utils";
 import Comments from "@/components/Comments";
 import { useThreads } from "@liveblocks/react/suspense";
 
@@ -45,7 +46,7 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
       console.error(error);
       throw error;
     },
-    editable: currentUserType === "editor",
+    editable: canEditContent(currentUserType),
   });
 
 
@@ -54,7 +55,7 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
       <div className="editor-container size-full">
         <div className="z-50 custom-scrollbar w-screen overflow-auto border-y border-dark-300 bg-dark-100 pl-3 pr-4 shadow-sm flex min-w-full justify-between">
           <ToolbarPlugin />
-          {currentUserType === "editor" && <DeleteModal roomId={roomId} />}
+          {currentUserType === "creator" && <DeleteModal roomId={roomId} />}
         </div>
 
         <div className="custom-scrollbar h-[calc(100vh-140px)] gap-5 overflow-auto px-5 pt-5 lg:flex-row lg:items-start lg:justify-center  xl:gap-10 xl:pt-10 flex flex-col items-center justify-start">
@@ -75,7 +76,7 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
                 ErrorBoundary={LexicalErrorBoundary}
               />
 
-              {currentUserType === "editor" && <FloatingToolbarPlugin />}
+              {canEditContent(currentUserType) && <FloatingToolbarPlugin />}
               <HistoryPlugin />
               <AutoFocusPlugin />
             </div>

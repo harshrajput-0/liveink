@@ -51,7 +51,7 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="gradient-blue flex h-9 gap-1 px-4 transition-[filter] hover:brightness-110 active:brightness-95" disabled={currentUserType !== "editor"}>
+        <Button className="gradient-blue flex h-9 gap-1 px-4 transition-[filter] hover:brightness-110 active:brightness-95" disabled={currentUserType !== "creator"}>
           <Share2 size={18} />
           <p className="mr-1 hidden sm:block">Share</p>
         </Button>

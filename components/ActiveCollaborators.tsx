@@ -17,7 +17,7 @@ const ActiveCollaborators = () => {
         {collaborators.length}
       </div>
       <ul className='hidden items-center justify-end -space-x-3 overflow-hidden sm:flex'>
-        {collaborators.map(({ id, avatar, name, color }) => (
+        {collaborators.map(({ id, avatar, name }) => (
           <li key={id}>
             <Image
               src={avatar}
@@ -25,7 +25,6 @@ const ActiveCollaborators = () => {
               width={100}
               height={100}
               className='inline-block size-8 rounded-full ring-1 ring-dark-400'
-              style={{ border: `3px solid ${color}` }}
             />
 
           </li>

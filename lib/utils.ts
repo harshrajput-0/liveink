@@ -8,7 +8,12 @@ export function cn(...inputs: ClassValue[]) {
 export const parseStringify = (value: unknown) =>
   JSON.parse(JSON.stringify(value));
 
+export const hasWriteAccess = (accesses?: string[]) =>
+  !!accesses?.some((access) => access === "room:write" || access === "*:write");
 
+export const canEditContent = (userType?: string) => {
+  return userType === "editor" || userType === "creator";
+}
 
 export const dateConverter = (timestamp: string): string => {
   const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);
@@ -31,11 +36,9 @@ export const dateConverter = (timestamp: string): string => {
     case diffInMinutes >= 1:
       return `${Math.floor(diffInMinutes)} minutes ago`;
     default:
-      return 'Just now';
+      return "Just now";
   }
 };
-
-
 
 // Function to generate a random color in hex format, excluding specified colors
 export function getRandomColor() {

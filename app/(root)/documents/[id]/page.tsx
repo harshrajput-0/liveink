@@ -2,6 +2,7 @@ import CollaborativeRoom from "@/components/CollaborativeRoom";
 import { getDocument } from "@/lib/actions/room.actions";
 import { getClerkUsers } from "@/lib/actions/user.actions";
 import { currentUser, User } from "@clerk/nextjs/server";
+import { hasWriteAccess } from "@/lib/utils";
 import { redirect } from "next/navigation";
 
 type SearchParamProps = {
@@ -28,9 +29,9 @@ const Document = async ( { params }: SearchParamProps) => {
 
   const userData = users.map((user: User) => ({
     ...user,
-    userType: room.usersAccesses[user.id]?.includes("room:write") ? "editor" : "viewer",
+    userType: room.metadata.creatorId === user.id ? "creator" : hasWriteAccess(room.usersAccesses[user.id]) ? "editor" : "viewer",
   }))
-  const currentUserType = room.usersAccesses[clerkUser.id]?.includes("room.write") ? "editor" : "viewer";
+  const currentUserType = room.metadata.creatorId === clerkUser.id ? "creator" : hasWriteAccess(room.usersAccesses[clerkUser.id]) ? "editor" : "viewer";
 
   return (
     <main className="flex w-full flex-col items-center">

@@ -5,13 +5,31 @@ import { RoomAccesses } from "@liveblocks/node";
 import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
 import { parseStringify } from "../utils";
-import { clerkClient } from "@clerk/nextjs/server";
+import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 interface CreateDocumentParams {
   userId: string;
   email: string;
 }
+
+// ==========================================| REQUIRE ROOM OWNER |==========================================
+export const requireRoomOwner = async(roomId: string) => {
+  const clerkUser = await currentUser();
+  if (!clerkUser) {
+    throw new Error("You need to sigin first");
+  }
+
+  const room = await liveblocks.getRoom(roomId);
+
+  if (room.metadata.creatorId !== clerkUser.id) {
+    throw new Error("You need to be doucument owner")
+  }
+
+  return { clerkUser, room };
+}
+
+
 
 // ==========================================| CREATE DOCUMENTS |==========================================
 export const createDocument = async ({
@@ -86,8 +104,8 @@ export const updateDocument = async(
   title: string
 ) => {
 
-  try {
-      const updatedRoom = await liveblocks.updateRoom(roomid, {
+try {
+  const updatedRoom = await liveblocks.updateRoom(roomid, {
     metadata: {
       title
     }
@@ -95,10 +113,11 @@ export const updateDocument = async(
 
   revalidatePath(`/documents/${roomid}`);
 
-  return parseStringify(updatedRoom);
-  } catch (error) {
-    console.log(error);
-  }
+  return parseStringify(updatedRoom)
+  
+} catch (error) {
+  console.log(error);
+}
 }
 
 // ==========================================| UPDATE DOCUMENTS ACCESS |==========================================
@@ -114,6 +133,9 @@ export const updateDocumentAccess = async ({
   updatedBy: { name: string, avatar?: string };
 }) => {
   try {
+    // Only owner can change persmissioins
+    await requireRoomOwner(roomId);
+
     const client = await clerkClient();
     const { data } = await client.users.getUserList({ emailAddress: [email] });
 
@@ -162,12 +184,13 @@ export const removeCollaborator = async ({
   email: string;
 }) => {
   try {
+    // User must be owner to remove collaborator
+    const { room } = await requireRoomOwner(roomId);
+
     const client = await clerkClient();
     const { data } = await client.users.getUserList({ emailAddress: [email] });
     if (!data.length) return;
     const targetUser = data[0];
-
-    const room = await liveblocks.getRoom(roomId);
 
     // don't let the creator remove themselves
     if (room.metadata.creatorId === targetUser.id) return;
@@ -190,6 +213,9 @@ export const removeCollaborator = async ({
 // ==========================================| DELETE DOCUMENT |==========================================
 export const deleteDocument = async (roomId: string) => {
   try {
+    // Only owner can delete document
+    await requireRoomOwner(roomId);
+
     await liveblocks.deleteRoom(roomId);
     revalidatePath("/");
     redirect("/")

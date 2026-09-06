@@ -52,6 +52,9 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
     const handleClickOutside = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setEditing(false);
+        if (currentUserType === "creator" && documentTitle !== roomMetadata.title) {
+          updateDocument(roomId, documentTitle);
+        }
         updateDocument(roomId, documentTitle);
       }
     }
@@ -60,7 +63,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     }
-  }, [documentTitle, roomId])
+  }, [documentTitle, roomId, currentUserType, roomMetadata.title]);
 
 
 
@@ -101,14 +104,14 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
                 </>
               )}
 
-              {currentUserType === "editor" && !editing && (
+              {currentUserType === "creator" && !editing && (
                 <Pencil size={16}
                   onClick={() => setEditing(true)}
                   className="pointer ml-3"
                 />
               )}
 
-              {currentUserType !== "editor" && !editing && (
+              {currentUserType !== "viewer" && !editing && (
                 <p className="rounded-md bg-dark-400/50 px-2 py-0.5 text-xs text-blue-100/50">View Only</p>
               )}
 
