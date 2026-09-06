@@ -37,9 +37,9 @@ export default function RootLayout({
     >
       <html
         lang="en"
+        data-theme="dark"
         className={cn(
           "h-full",
-          // "a/sign-in?redirect_url=http%3A%2F%2Flocalhost%3A3000%2Fntialiased",
           "antialised",
           geistSans.variable,
           geistMono.variable,

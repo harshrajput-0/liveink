@@ -111,8 +111,8 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
                 />
               )}
 
-              {currentUserType !== "viewer" && !editing && (
-                <p className="rounded-md bg-dark-400/50 px-2 py-0.5 text-xs text-blue-100/50">View Only</p>
+              {currentUserType === "viewer" && !editing && (
+                <p className="rounded-md bg-dark-400/50 px-2 py-0.5 text-xs text-blue-100/50 ml-2">View Only</p>
               )}
 
               {loading && (

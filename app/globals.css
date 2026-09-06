@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@liveblocks/react-ui/styles.css";
+@import "@liveblocks/react-ui/styles/dark/attributes.css";
 @import "../styles/dark-theme.css";
 
 /* class-based dark mode, matching the old darkMode: ['class'] config */

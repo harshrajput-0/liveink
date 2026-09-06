@@ -57,7 +57,7 @@ const Collaborator = ({ roomId, creatorId, collaborator, email, user }: Collabor
             {creatorId === collaborator.id ? (
                 <p className='text-sm text-blue-100'>Owner</p>
             ) : (
-                <div className='flex items-center'>
+                <div className='flex items-center gap-2'>
                     <UserTypeSelector
                         userType={userType}
                         setUserType={setUserType}
@@ -67,7 +67,7 @@ const Collaborator = ({ roomId, creatorId, collaborator, email, user }: Collabor
                         type='submit'
                         disabled={loading}
                         onClick={() => removeCollaboratorHandler(collaborator.email)}
-                        className='rounded-lg bg-transparent px-2 text-red-500 transition-colors hover:bg-red-500/10 hover:text-red-400'>
+                        className='rounded-md bg-transparent px-2 text-red-500 transition-colors hover:bg-red-500/50 hover:text-red-400'>
                         Remove
                     </Button>
                 </div>

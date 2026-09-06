@@ -1,7 +1,7 @@
 "use server";
 
 import { nanoid } from "@liveblocks/core";
-import { RoomAccesses } from "@liveblocks/node";
+import type { RoomAccesses } from "@liveblocks/node";
 import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
 import { parseStringify } from "../utils";
@@ -45,9 +45,9 @@ export const createDocument = async ({
       title: "Untitled",
     };
 
-    const usersAccesses: RoomAccesses = {
-      [userId]: ["room:write"],
-    };
+    const usersAccesses = {
+      [userId] : ["*:write"],
+    } as unknown as RoomAccesses;
 
     const room = await liveblocks.createRoom(roomId, {
       metadata,
@@ -142,9 +142,9 @@ export const updateDocumentAccess = async ({
     if (!data.length) throw new Error("No user found with that email");
     const invitedUser = data[0];
 
-    const usersAccesses: RoomAccesses = {
-      [invitedUser.id]: userType === "viewer" ? ["room:read", "room:presence:write"] : ["room:write"],
-    };
+    const usersAccesses = {
+      [invitedUser.id]: userType === "viewer" ? ["*:read", "room:presence:write"] : ["*:write"],
+    } as unknown as RoomAccesses;
 
     const room = await liveblocks.updateRoom(roomId, {
       usersAccesses,

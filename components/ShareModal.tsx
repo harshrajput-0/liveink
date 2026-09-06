@@ -25,12 +25,14 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("")
 
   const [email, setEmail] = useState("")
   const [userType, setUserType] = useState<UserType>("viewer");
 
   const shareDcoumentHandler = async () => {
     setLoading(true);
+    setError("");
 
     try {
       await updateDocumentAccess({
@@ -42,6 +44,7 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
       setEmail("");
     } catch (error) {
       console.log(error);
+      setError("Unable to send invite. Check email and try again")
     }
 
     setLoading(false);
@@ -73,19 +76,24 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
         <div className="flex items-center gap-3">
           <div className="flex flex-1 items-center rounded-md bg-dark-400">
             <Input id="email" placeholder="Enter email address" value={email} onChange={(e) => setEmail(e.target.value)}
-              className="h-11! flex-1! border-none! bg-dark-400! focus-visible:ring-0! focus-visible:ring-offset-0!" />
+            disabled={loading}
+              className="h-11! flex-1! border-none! bg-dark-400! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:cursor-not-allowed! disabled:opacity-60!" />
 
             <UserTypeSelector
               userType={userType}
               setUserType={setUserType}
+              disabled={loading}
             />
           </div>
 
-          <Button type="submit" onClick={shareDcoumentHandler} className="gradient-blue flex h-full gap-1 px-5 transition-[filter] hover:brightness-110 active:brightness-95" disabled={loading || !email}>
+          <Button type="submit" onClick={shareDcoumentHandler} className="gradient-blue flex h-full w-28 gap-1 px-5 transition-[filter] hover:brightness-110 active:brightness-95 disabled:opacity-60" disabled={loading || !email}>
             {loading ? "Sending..." : "Invite"}
           </Button>
         </div>
 
+        {error && (
+          <p className="text-sm text-red-400">{error}</p>
+        )}
         <div className="my-2 space-y-2">
           <ul className="flex flex-col">
             {collaborators.map((collaborator) => (
