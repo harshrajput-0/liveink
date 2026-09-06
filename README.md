@@ -1,36 +1,163 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# InkSync
+
+InkSync is a real-time collaborative document editor built with Next.js, Lexical, Liveblocks, and Clerk. It allows authenticated users to create documents, edit rich text together in real time, collaborate with other users, manage document permissions, and discuss content through threaded comments.
+
+## Features
+
+- **Authentication** with Clerk
+- **Real-time collaborative editing** powered by Liveblocks
+- **Rich-text editor** built with Lexical
+- **Document management**
+  - Create documents
+  - Rename documents
+  - Delete documents
+  - View all accessible documents
+- **Collaboration and sharing**
+  - Invite users by email
+  - Assign `Viewer` or `Editor` permissions
+  - Remove collaborators
+  - Show active collaborators
+- **Comments and threads** with Liveblocks
+- **Mentions** with collaborator suggestions
+- **View-only mode** for users without edit permission
+- **Responsive UI** using Tailwind CSS and shadcn/Radix components
+- **Error monitoring** with Sentry
+- **Next.js App Router** architecture
+- **TypeScript** throughout the application
+
+## Tech Stack
+
+| Category | Technology |
+| --- | --- |
+| Framework | Next.js 16 |
+| Language | TypeScript |
+| UI | React 19 |
+| Styling | Tailwind CSS |
+| Components | shadcn/ui + Radix UI |
+| Editor | Lexical |
+| Real-time collaboration | Liveblocks |
+| Authentication | Clerk |
+| Icons | Lucide React |
+| Error monitoring | Sentry |
+| Package manager | npm |
+
+
+## How Collaboration Works
+
+Each document is represented by a Liveblocks room.
+
+When a document is created, InkSync creates a Liveblocks room with metadata containing the document owner and title. The creator receives write access automatically.
+
+Users can then be invited to the room:
+
+- **Creator** — owns the document and can manage collaborators, rename, and delete the document.
+- **Editor** — can edit the document.
+- **Viewer** — can read the document and participate in presence/comment-related functionality without editing the document.
+
+Clerk handles user identity, while Liveblocks handles room access, presence, real-time synchronization, comments, and notifications.
+
+## Prerequisites
+
+Before running InkSync locally, make sure you have:
+
+- Node.js 20+ installed
+- npm installed
+- [Clerk](https://clerk.com/) for authenticaiton
+- [Liveblocks](https://liveblocks.io/) for live collaboration
+- [Sentry](https://sentry.io/), if you want error monitoring enabled
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/harshrajput-0/inksync.git
+cd inksync
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Configure environment variables
+
+Create a `.env.local` file in the project root.
+
+```env
+#Clerk
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+#Liveblocks
+LIVEBLOCKS_SECRET_KEY=
+
+# Sentry
+SENTRY_AUTH_TOKEN=your_sentry_auth_token
+```
+
+Only add the variables required by the services you have configured. Do not commit `.env.local` or other environment files to the repository.
+
+### 4. Start the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
 
-## Learn More
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the Next.js development server |
+| `npm run build` | Create a production build |
+| `npm start` | Start the production server |
+| `npm run lint` | Run ESLint |
+| `npm run format` | Format the project with Prettier |
 
-To learn more about Next.js, take a look at the following resources:
+## Production Build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To verify the project builds successfully:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build
+```
 
-## Deploy on Vercel
+Then start the production server:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+InkSync can be deployed to platforms that support Next.js, such as Vercel.
+
+When deploying, configure the same environment variables in the hosting provider's project settings rather than committing them to the repository.
+
+For Vercel, the typical deployment flow is:
+
+1. Import the repository into Vercel.
+2. Select the project root.
+3. Add the required environment variables.
+4. Deploy.
+5. Verify Clerk authentication and Liveblocks collaboration using the deployed domain.
+
+
+## Permissions
+
+| Role | Edit | Rename | Share | Remove Collaborators | Delete |
+| --- | :---: | :---: | :---: | :---: | :---: |
+| Creator | Yes | Yes | Yes | Yes | Yes |
+| Editor | Yes | No | No | No | No |
+| Viewer | No | No | No | No | No |
+
