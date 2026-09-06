@@ -31,7 +31,7 @@
 
   /* background images (bg-doc / bg-modal utilities) */
   /* --background-image-doc: url(/assets/images/doc.png);
-  --background-image-modal: url(/assets/images/modal.png); */ 
+  --background-image-modal: url(/assets/images/modal.png); */
 
   /* animations */
   --animate-accordion-down: accordion-down 0.2s ease-out;
@@ -175,8 +175,6 @@
     @apply mb-10 space-y-4 lg:w-fit flex w-full flex-col items-center justify-center;
   }
 
-
-
   .comment-thread {
     @apply w-full max-w-200 border border-dark-300 bg-dark-200 shadow-sm lg:w-87.5 transition-all;
   }
@@ -193,7 +191,6 @@
   .document-ul {
     @apply flex w-full max-w-182.5 flex-col gap-5;
   }
-
 }
 
 /* ======================== Clerk Override */

@@ -13,7 +13,7 @@ export const hasWriteAccess = (accesses?: string[]) =>
 
 export const canEditContent = (userType?: string) => {
   return userType === "editor" || userType === "creator";
-}
+};
 
 export const dateConverter = (timestamp: string): string => {
   const timestampNum = Math.round(new Date(timestamp).getTime() / 1000);

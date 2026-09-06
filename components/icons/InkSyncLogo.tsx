@@ -98,7 +98,14 @@ const InkSyncLogo: React.FC<InkSyncLogoProps> = ({
 
       {/* Icon: nib badge — full ring + nib icon centered inside */}
       <g transform="translate(100,100)">
-        <circle cx="0" cy="0" r="52" fill="none" stroke={resolved.ringColor} strokeWidth={7} />
+        <circle
+          cx="0"
+          cy="0"
+          r="52"
+          fill="none"
+          stroke={resolved.ringColor}
+          strokeWidth={7}
+        />
         <g transform="scale(0.72)">
           <path
             d="M 0,-52 L 34,-6 C 40,4 40,20 30,32 L 6,58 L -6,58 L -30,32 C -40,20 -40,4 -34,-6 Z"
@@ -114,7 +121,13 @@ const InkSyncLogo: React.FC<InkSyncLogoProps> = ({
             strokeLinecap="round"
             opacity={0.9}
           />
-          <circle cx="0" cy="52" r="8" fill={resolved.nibDetail} opacity={0.9} />
+          <circle
+            cx="0"
+            cy="52"
+            r="8"
+            fill={resolved.nibDetail}
+            opacity={0.9}
+          />
         </g>
       </g>
 

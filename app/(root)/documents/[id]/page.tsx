@@ -10,17 +10,17 @@ type SearchParamProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const Document = async ( { params }: SearchParamProps) => {
+const Document = async ({ params }: SearchParamProps) => {
   const clerkUser = await currentUser();
   if (!clerkUser) {
-    redirect('/sign-in')
+    redirect("/sign-in");
   }
   const { id } = await params;
 
   const room = await getDocument({
     roomId: id,
     userId: clerkUser.id,
-  })
+  });
 
   if (!room) redirect("/");
 
@@ -29,17 +29,27 @@ const Document = async ( { params }: SearchParamProps) => {
 
   const userData = users.map((user: User) => ({
     ...user,
-    userType: room.metadata.creatorId === user.id ? "creator" : hasWriteAccess(room.usersAccesses[user.id]) ? "editor" : "viewer",
-  }))
-  const currentUserType = room.metadata.creatorId === clerkUser.id ? "creator" : hasWriteAccess(room.usersAccesses[clerkUser.id]) ? "editor" : "viewer";
+    userType:
+      room.metadata.creatorId === user.id
+        ? "creator"
+        : hasWriteAccess(room.usersAccesses[user.id])
+          ? "editor"
+          : "viewer",
+  }));
+  const currentUserType =
+    room.metadata.creatorId === clerkUser.id
+      ? "creator"
+      : hasWriteAccess(room.usersAccesses[clerkUser.id])
+        ? "editor"
+        : "viewer";
 
   return (
     <main className="flex w-full flex-col items-center">
       <CollaborativeRoom
-      roomId={id} 
-      roomMetadata={room.metadata}
-      users={userData}
-      currentUserType={currentUserType}
+        roomId={id}
+        roomMetadata={room.metadata}
+        users={userData}
+        currentUserType={currentUserType}
       />
     </main>
   );

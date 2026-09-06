@@ -19,15 +19,19 @@ import UserTypeSelector from "./UserTypeSelector";
 import Collaborator from "./Collaborator";
 import { updateDocumentAccess } from "@/lib/actions/room.actions";
 
-
-const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: ShareDocumentDialogProps) => {
+const ShareModal = ({
+  roomId,
+  collaborators,
+  creatorId,
+  currentUserType,
+}: ShareDocumentDialogProps) => {
   const user = useSelf();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
   const [userType, setUserType] = useState<UserType>("viewer");
 
   const shareDcoumentHandler = async () => {
@@ -44,24 +48,28 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
       setEmail("");
     } catch (error) {
       console.log(error);
-      setError("Unable to send invite. Check email and try again")
+      setError("Unable to send invite. Check email and try again");
     }
 
     setLoading(false);
   };
 
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="gradient-blue flex h-9 gap-1 px-4 transition-[filter] hover:brightness-110 active:brightness-95" disabled={currentUserType !== "creator"}>
+        <Button
+          className="gradient-blue flex h-9 gap-1 px-4 transition-[filter] hover:brightness-110 active:brightness-95"
+          disabled={currentUserType !== "creator"}
+        >
           <Share2 size={18} />
           <p className="mr-1 hidden sm:block">Share</p>
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="w-full! max-w-[min(25rem,calc(100%-2rem))]! rounded-xl! border-none! bg-dark-300! bg-cover! px-5! py-7! shadow-xl! sm:min-w-[min(31.25rem,calc(100%-2rem))]!"
-        onInteractOutside={() => setOpen(false)}>
+      <DialogContent
+        className="w-full! max-w-[min(25rem,calc(100%-2rem))]! rounded-xl! border-none! bg-dark-300! bg-cover! px-5! py-7! shadow-xl! sm:min-w-[min(31.25rem,calc(100%-2rem))]!"
+        onInteractOutside={() => setOpen(false)}
+      >
         <DialogHeader>
           <DialogTitle>Manage who can view this document</DialogTitle>
           <DialogDescription>
@@ -69,15 +77,20 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
           </DialogDescription>
         </DialogHeader>
 
-        <Label htmlFor="email" className="mt-6 text-blue-100" >
+        <Label htmlFor="email" className="mt-6 text-blue-100">
           Email Address
         </Label>
 
         <div className="flex items-center gap-3">
           <div className="flex flex-1 items-center rounded-md bg-dark-400">
-            <Input id="email" placeholder="Enter email address" value={email} onChange={(e) => setEmail(e.target.value)}
-            disabled={loading}
-              className="h-11! flex-1! border-none! bg-dark-400! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:cursor-not-allowed! disabled:opacity-60!" />
+            <Input
+              id="email"
+              placeholder="Enter email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
+              className="h-11! flex-1! border-none! bg-dark-400! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:cursor-not-allowed! disabled:opacity-60!"
+            />
 
             <UserTypeSelector
               userType={userType}
@@ -86,14 +99,17 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
             />
           </div>
 
-          <Button type="submit" onClick={shareDcoumentHandler} className="gradient-blue flex h-full w-28 gap-1 px-5 transition-[filter] hover:brightness-110 active:brightness-95 disabled:opacity-60" disabled={loading || !email}>
+          <Button
+            type="submit"
+            onClick={shareDcoumentHandler}
+            className="gradient-blue flex h-full w-28 gap-1 px-5 transition-[filter] hover:brightness-110 active:brightness-95 disabled:opacity-60"
+            disabled={loading || !email}
+          >
             {loading ? "Sending..." : "Invite"}
           </Button>
         </div>
 
-        {error && (
-          <p className="text-sm text-red-400">{error}</p>
-        )}
+        {error && <p className="text-sm text-red-400">{error}</p>}
         <div className="my-2 space-y-2">
           <ul className="flex flex-col">
             {collaborators.map((collaborator) => (
@@ -108,11 +124,9 @@ const ShareModal = ({ roomId, collaborators, creatorId, currentUserType }: Share
             ))}
           </ul>
         </div>
-
-
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};
 
-export default ShareModal
+export default ShareModal;

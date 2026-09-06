@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import InkSyncLogo from "../icons/InkSyncLogo";
 import { PropsWithChildren } from "react";
+import Link from "next/link";
 
 export const Header = ({
   className,
@@ -13,7 +14,9 @@ export const Header = ({
         className,
       )}
     >
+      <Link href={"/"}>
       <InkSyncLogo width={200} theme="dark" />
+      </Link>
       {children}
     </div>
   );

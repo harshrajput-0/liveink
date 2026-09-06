@@ -32,8 +32,8 @@ declare global {
         title: string;
         updatedBy: string;
         avatar: string;
-      }
-    }
+      };
+    };
   }
 }
 

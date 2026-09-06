@@ -7,14 +7,14 @@ import {
   shift,
   size,
   useFloating,
-} from '@floating-ui/react-dom';
-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
-import { OPEN_FLOATING_COMPOSER_COMMAND } from '@liveblocks/react-lexical';
-import type { LexicalEditor, LexicalNode } from 'lexical';
-import { $getSelection, $isRangeSelection, $isTextNode } from 'lexical';
-import Image from 'next/image';
-import { useEffect, useLayoutEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+} from "@floating-ui/react-dom";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { OPEN_FLOATING_COMPOSER_COMMAND } from "@liveblocks/react-lexical";
+import type { LexicalEditor, LexicalNode } from "lexical";
+import { $getSelection, $isRangeSelection, $isTextNode } from "lexical";
+import Image from "next/image";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 export default function FloatingToolbar() {
   const [editor] = useLexicalComposerContext();
@@ -25,7 +25,7 @@ export default function FloatingToolbar() {
     editor.registerUpdateListener(({ tags }) => {
       return editor.getEditorState().read(() => {
         // Ignore selection updates related to collaboration
-        if (tags.has('collaboration')) return;
+        if (tags.has("collaboration")) return;
 
         const selection = $getSelection();
         if (!$isRangeSelection(selection) || selection.isCollapsed()) {
@@ -74,8 +74,8 @@ function Toolbar({
     x,
     y,
   } = useFloating({
-    strategy: 'fixed',
-    placement: 'bottom',
+    strategy: "fixed",
+    placement: "bottom",
     middleware: [
       flip({ padding, crossAxis: false }),
       offset(10),
@@ -104,7 +104,7 @@ function Toolbar({
         top: 0,
         left: 0,
         transform: `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)`,
-        minWidth: 'max-content',
+        minWidth: "max-content",
       }}
     >
       <div className="floating-toolbar">
@@ -174,7 +174,7 @@ function getDOMIndexWithinParent(node: ChildNode): [ParentNode, number] {
   const parent = node.parentNode;
 
   if (parent === null) {
-    throw new Error('Should never happen');
+    throw new Error("Should never happen");
   }
 
   return [parent, Array.from(parent.childNodes).indexOf(node)];
@@ -221,11 +221,11 @@ export function createDOMRange(
     return null;
   }
 
-  if (anchorDOM.nodeName === 'BR') {
+  if (anchorDOM.nodeName === "BR") {
     [anchorDOM, anchorOffset] = getDOMIndexWithinParent(anchorDOM as ChildNode);
   }
 
-  if (focusDOM.nodeName === 'BR') {
+  if (focusDOM.nodeName === "BR") {
     [focusDOM, focusOffset] = getDOMIndexWithinParent(focusDOM as ChildNode);
   }
 
@@ -234,7 +234,7 @@ export function createDOMRange(
   if (
     anchorDOM === focusDOM &&
     firstChild !== null &&
-    firstChild.nodeName === 'BR' &&
+    firstChild.nodeName === "BR" &&
     anchorOffset === 0 &&
     focusOffset === 0
   ) {

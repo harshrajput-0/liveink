@@ -1,9 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import {
-  ClientSideSuspense,
-  RoomProvider,
-} from "@liveblocks/react/suspense";
+import { ClientSideSuspense, RoomProvider } from "@liveblocks/react/suspense";
 import { Header } from "@/components/navigation/Header";
 import { UserButton } from "@clerk/nextjs";
 import ActiveCollaborators from "./ActiveCollaborators";
@@ -15,19 +12,23 @@ import InkSyncLoaderDraw from "./icons/InkSyncLoaderDraw";
 import { CollaborativeRoomProps } from "@/types/types";
 import ShareModal from "./ShareModal";
 
-
-const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
-
-  const [documentTitle, setDocumentTitle] = useState(roomMetadata.title)
+const CollaborativeRoom = ({
+  roomId,
+  roomMetadata,
+  users,
+  currentUserType,
+}: CollaborativeRoomProps) => {
+  const [documentTitle, setDocumentTitle] = useState(roomMetadata.title);
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-
   // ===| UPDATE TITLE HANDLER |------------------------------------------------------
-  const updateTitleHandler = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const updateTitleHandler = async (
+    e: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
     if (e.key === "Enter") {
       setLoading(true);
 
@@ -45,45 +46,46 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
       setLoading(false);
       setEditing(false);
     }
-  }
-
+  };
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setEditing(false);
-        if (currentUserType === "creator" && documentTitle !== roomMetadata.title) {
+        if (
+          currentUserType === "creator" &&
+          documentTitle !== roomMetadata.title
+        ) {
           updateDocument(roomId, documentTitle);
         }
         updateDocument(roomId, documentTitle);
       }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-    }
+    };
   }, [documentTitle, roomId, currentUserType, roomMetadata.title]);
-
-
 
   useEffect(() => {
     if (editing && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [editing])
-
+  }, [editing]);
 
   return (
-    <RoomProvider
-      id={roomId}
-      initialPresence={{}}
-      initialStorage={{}}
-    >
-      <ClientSideSuspense fallback={
-        <div className="flex items-center justify-center w-full h-screen">
-        <InkSyncLoaderDraw />
-      </div>}>
+    <RoomProvider id={roomId} initialPresence={{}} initialStorage={{}}>
+      <ClientSideSuspense
+        fallback={
+          <div className="flex items-center justify-center w-full h-screen">
+            <InkSyncLoaderDraw />
+          </div>
+        }
+      >
         <div className="flex size-full max-h-screen flex-1 flex-col items-center overflow-hidden">
           <Header className="sticky top-0 left-0">
             <div className="flex w-fit items-center justify-center">
@@ -100,19 +102,24 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
                 />
               ) : (
                 <>
-                  <p className="line-clamp-1 border-dark-400 text-base font-semibold leading-6 sm:pl-0 sm:text-xl">{documentTitle}</p>
+                  <p className="line-clamp-1 border-dark-400 text-base font-semibold leading-6 sm:pl-0 sm:text-xl">
+                    {documentTitle}
+                  </p>
                 </>
               )}
 
               {currentUserType === "creator" && !editing && (
-                <Pencil size={16}
+                <Pencil
+                  size={16}
                   onClick={() => setEditing(true)}
                   className="pointer ml-3"
                 />
               )}
 
               {currentUserType === "viewer" && !editing && (
-                <p className="rounded-md bg-dark-400/50 px-2 py-0.5 text-xs text-blue-100/50 ml-2">View Only</p>
+                <p className="rounded-md bg-dark-400/50 px-2 py-0.5 text-xs text-blue-100/50 ml-2">
+                  View Only
+                </p>
               )}
 
               {loading && (
@@ -124,25 +131,20 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
               )}
             </div>
 
-
             <div className="flex items-center gap-2 lg:gap-4">
-
               {/* share mode here */}
               <ShareModal
-              roomId={roomId}
-              collaborators={users}
-              creatorId={roomMetadata.creatorId}
-              currentUserType={currentUserType}
-               />
+                roomId={roomId}
+                collaborators={users}
+                creatorId={roomMetadata.creatorId}
+                currentUserType={currentUserType}
+              />
               <ActiveCollaborators />
               <UserButton />
             </div>
           </Header>
 
-
           <Editor roomId={roomId} currentUserType={currentUserType} />
-
-
         </div>
       </ClientSideSuspense>
     </RoomProvider>

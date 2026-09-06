@@ -14,7 +14,7 @@ interface CreateDocumentParams {
 }
 
 // ==========================================| REQUIRE ROOM OWNER |==========================================
-export const requireRoomOwner = async(roomId: string) => {
+export const requireRoomOwner = async (roomId: string) => {
   const clerkUser = await currentUser();
   if (!clerkUser) {
     throw new Error("You need to sigin first");
@@ -23,13 +23,11 @@ export const requireRoomOwner = async(roomId: string) => {
   const room = await liveblocks.getRoom(roomId);
 
   if (room.metadata.creatorId !== clerkUser.id) {
-    throw new Error("You need to be doucument owner")
+    throw new Error("You need to be doucument owner");
   }
 
   return { clerkUser, room };
-}
-
-
+};
 
 // ==========================================| CREATE DOCUMENTS |==========================================
 export const createDocument = async ({
@@ -46,7 +44,7 @@ export const createDocument = async ({
     };
 
     const usersAccesses = {
-      [userId] : ["*:write"],
+      [userId]: ["*:write"],
     } as unknown as RoomAccesses;
 
     const room = await liveblocks.createRoom(roomId, {
@@ -80,12 +78,11 @@ export const getDocument = async ({
       throw new Error("you don't have access to this room");
     }
 
-    return parseStringify(room)
+    return parseStringify(room);
   } catch (error) {
-    console.log( `Error fetching the room: ${error}` );
+    console.log(`Error fetching the room: ${error}`);
   }
 };
-
 
 // ==========================================| GET DOCUMENTS |==========================================
 export const getDocuments = async (email: string) => {
@@ -96,29 +93,24 @@ export const getDocuments = async (email: string) => {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 // ==========================================| UPDATE DOCUMENT |==========================================
-export const updateDocument = async(
-  roomid: string,
-  title: string
-) => {
+export const updateDocument = async (roomid: string, title: string) => {
+  try {
+    const updatedRoom = await liveblocks.updateRoom(roomid, {
+      metadata: {
+        title,
+      },
+    });
 
-try {
-  const updatedRoom = await liveblocks.updateRoom(roomid, {
-    metadata: {
-      title
-    }
-  })
+    revalidatePath(`/documents/${roomid}`);
 
-  revalidatePath(`/documents/${roomid}`);
-
-  return parseStringify(updatedRoom)
-  
-} catch (error) {
-  console.log(error);
-}
-}
+    return parseStringify(updatedRoom);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // ==========================================| UPDATE DOCUMENTS ACCESS |==========================================
 export const updateDocumentAccess = async ({
@@ -130,7 +122,7 @@ export const updateDocumentAccess = async ({
   roomId: string;
   email: string;
   userType: "creator" | "editor" | "viewer";
-  updatedBy: { name: string, avatar?: string };
+  updatedBy: { name: string; avatar?: string };
 }) => {
   try {
     // Only owner can change persmissioins
@@ -143,7 +135,8 @@ export const updateDocumentAccess = async ({
     const invitedUser = data[0];
 
     const usersAccesses = {
-      [invitedUser.id]: userType === "viewer" ? ["*:read", "room:presence:write"] : ["*:write"],
+      [invitedUser.id]:
+        userType === "viewer" ? ["*:read", "room:presence:write"] : ["*:write"],
     } as unknown as RoomAccesses;
 
     const room = await liveblocks.updateRoom(roomId, {
@@ -208,8 +201,6 @@ export const removeCollaborator = async ({
   }
 };
 
-
-
 // ==========================================| DELETE DOCUMENT |==========================================
 export const deleteDocument = async (roomId: string) => {
   try {
@@ -218,8 +209,8 @@ export const deleteDocument = async (roomId: string) => {
 
     await liveblocks.deleteRoom(roomId);
     revalidatePath("/");
-    redirect("/")
+    redirect("/");
   } catch (error) {
-    console.log(`Unable to delete room ${error}`)
+    console.log(`Unable to delete room ${error}`);
   }
-}
+};

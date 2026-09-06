@@ -10,9 +10,14 @@ import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { LexicalErrorBoundary } from "@lexical/react/LexicalErrorBoundary";
-import { FloatingComposer, FloatingThreads, LiveblocksPlugin, useEditorStatus } from "@liveblocks/react-lexical";   // + add
+import {
+  FloatingComposer,
+  FloatingThreads,
+  LiveblocksPlugin,
+  useEditorStatus,
+} from "@liveblocks/react-lexical"; // + add
 
-import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin"
+import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin";
 
 import { liveblocksConfig } from "@liveblocks/react-lexical";
 
@@ -25,9 +30,7 @@ import { useThreads } from "@liveblocks/react/suspense";
 
 function Placeholder() {
   return (
-    <div
-      className="pointer-events-none absolute left-10 top-10 select-none overflow-hidden text-ellipsis text-[15px] text-blue-100"
-    >
+    <div className="pointer-events-none absolute left-10 top-10 select-none overflow-hidden text-ellipsis text-[15px] text-blue-100">
       Enter some rich text...
     </div>
   );
@@ -49,7 +52,6 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
     editable: canEditContent(currentUserType),
   });
 
-
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="editor-container size-full">
@@ -64,13 +66,10 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
               <InkSyncLoaderDraw />
             </div>
           ) : (
-
             <div className="editor-inner min-h-275 relative mb-5 h-fit w-full max-w-200 shadow-md lg:mb-10">
               <RichTextPlugin
                 contentEditable={
-                  <ContentEditable
-                    className="editor-input h-full"
-                  />
+                  <ContentEditable className="editor-input h-full" />
                 }
                 placeholder={<Placeholder />}
                 ErrorBoundary={LexicalErrorBoundary}
@@ -82,8 +81,6 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
             </div>
           )}
           <LiveblocksPlugin>
-
-
             <FloatingComposer className="w-87.5" />
             <FloatingThreads threads={threads} />
             <Comments />
