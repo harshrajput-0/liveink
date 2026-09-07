@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { deleteDocument } from "@/lib/actions/room.actions";
 
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import IconButton from "./IconButton";
 
 import {
@@ -20,7 +20,7 @@ import {
 import { Trash2, AlertCircle } from "lucide-react";
 import { DeleteModalProps } from "@/types/types";
 
-export const DeleteModal = ({ roomId }: DeleteModalProps) => {
+const DeleteModal = ({ roomId }: DeleteModalProps) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -74,3 +74,6 @@ export const DeleteModal = ({ roomId }: DeleteModalProps) => {
     </Dialog>
   );
 };
+
+
+export default DeleteModal;

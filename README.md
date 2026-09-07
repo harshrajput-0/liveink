@@ -27,20 +27,19 @@ InkSync is a real-time collaborative document editor built with Next.js, Lexical
 
 ## Tech Stack
 
-| Category | Technology |
-| --- | --- |
-| Framework | Next.js 16 |
-| Language | TypeScript |
-| UI | React 19 |
-| Styling | Tailwind CSS |
-| Components | shadcn/ui + Radix UI |
-| Editor | Lexical |
-| Real-time collaboration | Liveblocks |
-| Authentication | Clerk |
-| Icons | Lucide React |
-| Error monitoring | Sentry |
-| Package manager | npm |
-
+| Category                | Technology           |
+| ----------------------- | -------------------- |
+| Framework               | Next.js 16           |
+| Language                | TypeScript           |
+| UI                      | React 19             |
+| Styling                 | Tailwind CSS         |
+| Components              | shadcn/ui + Radix UI |
+| Editor                  | Lexical              |
+| Real-time collaboration | Liveblocks           |
+| Authentication          | Clerk                |
+| Icons                   | Lucide React         |
+| Error monitoring        | Sentry               |
+| Package manager         | npm                  |
 
 ## How Collaboration Works
 
@@ -116,13 +115,13 @@ http://localhost:3000
 
 ## Available Scripts
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the Next.js development server |
-| `npm run build` | Create a production build |
-| `npm start` | Start the production server |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Format the project with Prettier |
+| Command          | Description                          |
+| ---------------- | ------------------------------------ |
+| `npm run dev`    | Start the Next.js development server |
+| `npm run build`  | Create a production build            |
+| `npm start`      | Start the production server          |
+| `npm run lint`   | Run ESLint                           |
+| `npm run format` | Format the project with Prettier     |
 
 ## Production Build
 
@@ -152,12 +151,10 @@ For Vercel, the typical deployment flow is:
 4. Deploy.
 5. Verify Clerk authentication and Liveblocks collaboration using the deployed domain.
 
-
 ## Permissions
 
-| Role | Edit | Rename | Share | Remove Collaborators | Delete |
-| --- | :---: | :---: | :---: | :---: | :---: |
-| Creator | Yes | Yes | Yes | Yes | Yes |
-| Editor | Yes | No | No | No | No |
-| Viewer | No | No | No | No | No |
-
+| Role    | Edit | Rename | Share | Remove Collaborators | Delete |
+| ------- | :--: | :----: | :---: | :------------------: | :----: |
+| Creator | Yes  |  Yes   |  Yes  |         Yes          |  Yes   |
+| Editor  | Yes  |   No   |  No   |          No          |   No   |
+| Viewer  |  No  |   No   |  No   |          No          |   No   |

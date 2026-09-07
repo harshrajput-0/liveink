@@ -2,12 +2,16 @@
 
 import { useState } from "react";
 import { createDocument } from "@/lib/actions/room.actions";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { Plus, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { AddDocumentBtnProps } from "@/types/types";
 
-const AddDocumentBtn = ({ userId, email }: AddDocumentBtnProps) => {
+const AddDocumentBtn = ({
+  userId,
+  email,
+  label = "Create a blank document",
+}: AddDocumentBtnProps) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -29,16 +33,14 @@ const AddDocumentBtn = ({ userId, email }: AddDocumentBtnProps) => {
       type="submit"
       onClick={addDocumentHandler}
       disabled={loading}
-      className="gradient-blue flex dap-1 shadow-md"
+      className="gradient-blue flex gap-1 shadow-md"
     >
       {loading ? (
         <Loader2 size={24} className="animate-spin" />
       ) : (
         <Plus size={24} />
       )}
-      <p className="hidden sm:block">
-        {loading ? "Create document..." : "Create blank document"}
-      </p>
+      <p className="hidden sm:block">{loading ? "Create..." : label}</p>
     </Button>
   );
 };

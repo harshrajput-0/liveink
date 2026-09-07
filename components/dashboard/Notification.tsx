@@ -1,6 +1,6 @@
 "use client";
 
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import {
   InboxNotification,
   InboxNotificationList,
@@ -34,7 +34,7 @@ const Notification = () => {
 
       <PopoverContent
         align="end"
-        className="w-[460px]! border-none! bg-dark-200! shadow-lg!"
+        className="w-115! border-none! bg-dark-200! shadow-lg!"
       >
         <LiveblocksUIConfig
           overrides={{

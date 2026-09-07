@@ -22,7 +22,7 @@ import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin";
 import { liveblocksConfig } from "@liveblocks/react-lexical";
 
 import InkSyncLoaderDraw from "@/components/icons/InkSyncLoaderDraw";
-import { DeleteModal } from "@/components/DeleteModal";
+import  DeleteModal  from "@/components/shared/DeleteModal";
 import { EditorProps } from "@/types/types";
 import { canEditContent } from "@/lib/utils";
 import Comments from "@/components/Comments";

@@ -3,6 +3,15 @@ import { ThreadData } from "@liveblocks/client";
 export type AddDocumentBtnProps = {
   userId: string;
   email: string;
+  label?: string;
+};
+
+export type RoomDocument = {
+  id: string;
+  metadata: {
+    title: string;
+  };
+  createdAt: string;
 };
 
 export type UserType = "creator" | "editor" | "viewer";
