@@ -91,6 +91,7 @@ const CollaborativeRoom = ({
             <div className="flex w-fit items-center justify-center">
               {editing && !loading ? (
                 <Input
+                  id="inksync-doc-title"
                   type="text"
                   value={documentTitle}
                   ref={inputRef}
@@ -98,11 +99,14 @@ const CollaborativeRoom = ({
                   onChange={(e) => setDocumentTitle(e.target.value)}
                   onKeyDown={updateTitleHandler}
                   disabled={!editing}
-                  className="min-w-19.5! flex-1! border-none! bg-transparent! px-0! text-left! text-base! font-semibold! leading-6! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:text-black! sm:text-xl! md:text-center!"
+                  className="min-w-19.5! flex-1! border-none! bg-transparent! px-0! text-left! text-base! font-semibold! leading-6! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:text-black! sm:text-xl! md:text-center! font-serif"
                 />
               ) : (
                 <>
-                  <p className="line-clamp-1 border-dark-400 text-base font-semibold leading-6 sm:pl-0 sm:text-xl">
+                  <p
+                    id={"inksync-data-title"}
+                    className="line-clamp-1 border-dark-400 text-base font-semibold leading-6 sm:pl-0 sm:text-xl"
+                  >
                     {documentTitle}
                   </p>
                 </>

@@ -12,6 +12,11 @@ InkSync is a real-time collaborative document editor built with Next.js, Lexical
   - Rename documents
   - Delete documents
   - View all accessible documents
+  - Search documents by title
+  - Toggle between grid and list views
+- **Export**
+  - Download the current document as a PDF (via the browser's print dialog)
+  - Download the current document as a Word file (`.doc`)
 - **Collaboration and sharing**
   - Invite users by email
   - Assign `Viewer` or `Editor` permissions
@@ -19,6 +24,7 @@ InkSync is a real-time collaborative document editor built with Next.js, Lexical
   - Show active collaborators
 - **Comments and threads** with Liveblocks
 - **Mentions** with collaborator suggestions
+- **Notifications** for comments, mentions, and access changes, with an unread indicator
 - **View-only mode** for users without edit permission
 - **Responsive UI** using Tailwind CSS and shadcn/Radix components
 - **Error monitoring** with Sentry
@@ -54,6 +60,21 @@ Users can then be invited to the room:
 - **Viewer** — can read the document and participate in presence/comment-related functionality without editing the document.
 
 Clerk handles user identity, while Liveblocks handles room access, presence, real-time synchronization, comments, and notifications.
+
+## Permissions
+
+| Role    | Edit | Rename | Share | Remove Collaborators | Delete |
+| ------- | :--: | :----: | :---: | :------------------: | :----: |
+| Creator | Yes  |  Yes   |  Yes  |         Yes          |  Yes   |
+| Editor  | Yes  |   No   |  No   |          No          |   No   |
+| Viewer  |  No  |   No   |  No   |          No          |   No   |
+
+## Exporting Documents
+
+From the editor toolbar, the download menu offers two formats:
+
+- **PDF** — opens the browser's native print dialog, scoped to just the document content; choosing "Save as PDF" there produces the file. No extra dependencies required.
+- **Word (`.doc`)** — downloads the document's rendered HTML as an `application/msword` file. This opens correctly in Word, Google Docs, and LibreOffice, but it is not a true OOXML `.docx` file — for that, a library such as `docx` or `html-to-docx` would need to be added.
 
 ## Prerequisites
 
@@ -150,11 +171,3 @@ For Vercel, the typical deployment flow is:
 3. Add the required environment variables.
 4. Deploy.
 5. Verify Clerk authentication and Liveblocks collaboration using the deployed domain.
-
-## Permissions
-
-| Role    | Edit | Rename | Share | Remove Collaborators | Delete |
-| ------- | :--: | :----: | :---: | :------------------: | :----: |
-| Creator | Yes  |  Yes   |  Yes  |         Yes          |  Yes   |
-| Editor  | Yes  |   No   |  No   |          No          |   No   |
-| Viewer  |  No  |   No   |  No   |          No          |   No   |

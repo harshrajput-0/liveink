@@ -73,7 +73,7 @@ const Collaborator = ({
             type="submit"
             disabled={loading}
             onClick={() => removeCollaboratorHandler(collaborator.email)}
-            className="rounded-md bg-transparent px-2 text-red-500 transition-colors hover:bg-red-500/50 hover:text-red-400"
+            className="rounded-md bg-transparent px-2 text-red-500 transition-colors hover:bg-red-500/150 hover:text-red-400"
           >
             Remove
           </Button>

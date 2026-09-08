@@ -62,7 +62,7 @@ const ShareModal = ({
           disabled={currentUserType !== "creator"}
         >
           <Share2 size={18} />
-          <p className="mr-1 hidden sm:block">Share</p>
+          <p className="ml-1 hidden sm:block">Share</p>
         </Button>
       </DialogTrigger>
 

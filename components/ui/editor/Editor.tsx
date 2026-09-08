@@ -22,7 +22,7 @@ import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin";
 import { liveblocksConfig } from "@liveblocks/react-lexical";
 
 import InkSyncLoaderDraw from "@/components/icons/InkSyncLoaderDraw";
-import  DeleteModal  from "@/components/shared/DeleteModal";
+import { DeleteModal, DownloadMenu } from "@/components/shared";
 import { EditorProps } from "@/types/types";
 import { canEditContent } from "@/lib/utils";
 import Comments from "@/components/Comments";
@@ -55,9 +55,12 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
   return (
     <LexicalComposer initialConfig={initialConfig}>
       <div className="editor-container size-full">
-        <div className="z-50 custom-scrollbar w-screen overflow-auto border-y border-dark-300 bg-dark-100 pl-3 pr-4 shadow-sm flex min-w-full justify-between">
+        <div className="z-50 custom-scrollbar w-screen overflow-auto border-y border-dark-300 bg-dark-200 pl-3 pr-4 shadow-sm flex min-w-full justify-between">
           <ToolbarPlugin />
-          {currentUserType === "creator" && <DeleteModal roomId={roomId} />}
+          <div className="flex items-center gap-1 py-1.5">
+            <DownloadMenu targetId="inksync-printable" />
+            {currentUserType === "creator" && <DeleteModal roomId={roomId} />}
+          </div>
         </div>
 
         <div className="custom-scrollbar h-[calc(100vh-140px)] gap-5 overflow-auto px-5 pt-5 lg:flex-row lg:items-start lg:justify-center  xl:gap-10 xl:pt-10 flex flex-col items-center justify-start">
@@ -66,7 +69,10 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
               <InkSyncLoaderDraw />
             </div>
           ) : (
-            <div className="editor-inner min-h-275 relative mb-5 h-fit w-full max-w-200 shadow-md lg:mb-10">
+            <div
+              id="inksync-printable"
+              className="editor-inner min-h-275 relative mb-5 h-fit w-full max-w-200 rounded-md lg:mb-10 border font-serif bg-dark-200 border-dark-300"
+            >
               <RichTextPlugin
                 contentEditable={
                   <ContentEditable className="editor-input h-full" />

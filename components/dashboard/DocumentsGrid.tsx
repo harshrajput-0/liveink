@@ -64,7 +64,9 @@ const DocumentsGrid = ({ documents }: { documents: RoomDocument[] }) => {
                 <div className="flex size-9 items-center justify-center rounded-full bg-dark-500">
                   <FileText size={18} />
                 </div>
-                <p className="line-clamp-1 w-full text-sm truncate">{metadata.title}</p>
+                <p className="line-clamp-1 w-full text-sm truncate">
+                  {metadata.title}
+                </p>
                 <p className="text-10 text-blue-100">
                   {dateConverter(createdAt)}
                 </p>
@@ -87,13 +89,15 @@ const DocumentsGrid = ({ documents }: { documents: RoomDocument[] }) => {
                   <FileText size={26} />
                 </div>
                 <div className="min-w-0 space-y-1">
-                  <p className="line-clamp-1 text-lg truncate">{metadata.title}</p>
+                  <p className="line-clamp-1 text-lg truncate">
+                    {metadata.title}
+                  </p>
                   <p className="text-sm font-light text-blue-100">
                     Created At {dateConverter(createdAt)}
                   </p>
                 </div>
               </Link>
-              
+
               <DeleteModal roomId={id} />
             </li>
           ))}

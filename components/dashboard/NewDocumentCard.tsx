@@ -38,9 +38,7 @@ const NewDocumentCard = ({ userId, email }: AddDocumentBtnProps) => {
           <Plus size={18} />
         )}
       </div>
-          <p className="text-sm">
-            {loading ? "Creating..." : "Blank document"}
-          </p>
+      <p className="text-sm">{loading ? "Creating..." : "Blank document"}</p>
     </button>
   );
 };

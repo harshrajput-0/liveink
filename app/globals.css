@@ -193,6 +193,26 @@
   }
 }
 
+/* ======================== Print Document */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #inksync-printable,
+  #inksync-printable * {
+    visibility: visible;
+  }
+  #inksync-printable {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0.5in !important;
+  }
+}
+
 /* ======================== Clerk Override */
 .cl-avatarBox {
   width: 36px;

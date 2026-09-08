@@ -73,12 +73,10 @@ const Home = async ({
           <p className="py-12 text-center text-sm font-light text-blue-100">
             No result found
           </p>
-        ) : ( 
+        ) : (
           <DocumentsGrid documents={filteredDocuments} />
         )}
       </div>
-
-
     </main>
   );
 };

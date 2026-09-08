@@ -44,7 +44,11 @@ const DeleteModal = ({ roomId }: DeleteModalProps) => {
 
       <DialogContent className="w-full! max-w-[min(25rem,calc(100%-2rem))]! rounded-xl! bg-dark-100! border-none! px-5! py-7! shadow-xl! sm:min-w-[min(31.25rem,calc(100%-2rem))]!">
         <DialogHeader>
-          <IconButton icon={<AlertCircle />} aria-label="delete" />
+          <IconButton
+            icon={<AlertCircle />}
+            aria-label="delete"
+            className="text-red-500"
+          />
 
           <DialogTitle className="text-2xl">Delete Document</DialogTitle>
 
@@ -74,6 +78,5 @@ const DeleteModal = ({ roomId }: DeleteModalProps) => {
     </Dialog>
   );
 };
-
 
 export default DeleteModal;
