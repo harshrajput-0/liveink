@@ -2,15 +2,10 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** The icon to render (an SVG component, lucide-react icon, etc.) */
   icon: React.ReactNode;
-  /** Required for accessibility since there's no visible label */
   "aria-label": string;
-  /** Visual style. Default: "ghost" */
   variant?: "ghost" | "solid" | "outline";
-  /** Button size. Default: "md" */
   size?: "sm" | "md" | "lg";
-  /** Rounded pill shape instead of rounded-md. Default: true */
   rounded?: boolean;
 }
 
@@ -26,21 +21,21 @@ const VARIANT_CLASSES: Record<
 > = {
   // transparent by default, tints on hover/active — good for navbars/toolbars
   ghost: cn(
-    "bg-transparent text-blue-100",
-    "hover:bg-dark-400 hover:text-white",
-    "active:bg-dark-500 active:scale-95",
+    "bg-transparent text-ink-muted",
+    "hover:bg-border hover:text-ink",
+    "active:bg-border-strong active:scale-95",
   ),
   // filled brand color — good for a single primary icon action
   solid: cn(
-    "bg-blue-500 text-white",
-    "hover:bg-blue-400",
-    "active:bg-blue-500 active:scale-95",
+    "bg-primary text-primary-foreground",
+    "hover:bg-primary-hover",
+    "active:bg-primary active:scale-95",
   ),
   // bordered, transparent fill — good on top of images/gradients
   outline: cn(
-    "bg-transparent text-blue-100 border border-dark-500",
-    "hover:bg-dark-400 hover:border-dark-400",
-    "active:bg-dark-500 active:scale-95",
+    "bg-transparent text-ink-muted border border-border-strong",
+    "hover:bg-border hover:border-border-strong",
+    "active:bg-border-strong active:scale-95",
   ),
 };
 
@@ -65,7 +60,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         className={cn(
           "inline-flex items-center justify-center shrink-0",
           "transition-all duration-150 ease-out",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-100 focus-visible:ring-offset-2 focus-visible:ring-offset-dark-100",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           "disabled:pointer-events-none disabled:opacity-40",
           rounded ? "rounded-full" : "rounded-md",
           SIZE_CLASSES[size],

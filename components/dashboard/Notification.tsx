@@ -13,8 +13,19 @@ import {
 import Image from "next/image";
 import { ReactNode } from "react";
 import { Bell } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-const Notification = () => {
+interface NotificationProps {
+  variant?: "ghost" | "outline";
+  showCount?: boolean;
+  size?: "sm" | "md";
+}
+
+const Notification = ({
+  variant = "ghost",
+  showCount = false,
+  size = "md",
+}: NotificationProps) => {
   const { inboxNotifications } = useInboxNotifications();
   const { count } = useUnreadInboxNotificationsCount();
 
@@ -22,19 +33,34 @@ const Notification = () => {
     (notification) => !notification.readAt,
   );
 
+  const iconSize = size === "sm" ? (variant === "outline" ? 15 : 18) : variant === "outline" ? 18 : 24;
+
   return (
     <Popover>
-      <PopoverTrigger className="relative flex size-10 items-center justify-center rounded-lg">
-        <Bell size={24} />
-
-        {count > 0 && (
-          <div className="absolute right-2 top-2 z-20 size-2 rounded-full bg-blue-500" />
+      <PopoverTrigger
+        className={cn(
+          "relative flex shrink-0 items-center justify-center transition-colors",
+          size === "sm" ? "size-8" : "size-10",
+          variant === "outline"
+            ? "rounded-md border border-border-strong bg-transparent text-ink-muted hover:bg-border"
+            : "rounded-lg text-ink-muted hover:bg-border hover:text-ink",
         )}
+      >
+        <Bell size={iconSize} />
+
+        {count > 0 &&
+          (showCount ? (
+            <span className="absolute -right-1.5 -top-1.5 z-20 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-destructive px-1 text-[10px] font-semibold leading-none text-destructive-foreground">
+              {count > 9 ? "9+" : count}
+            </span>
+          ) : (
+            <div className="absolute right-2 top-2 z-20 size-2 rounded-full bg-primary" />
+          ))}
       </PopoverTrigger>
 
       <PopoverContent
         align="end"
-        className="w-115! border-none! bg-dark-200! shadow-lg!"
+        className="w-115! border-none! bg-surface-raised! shadow-popover!"
       >
         <LiveblocksUiConfig
           overrides={{
@@ -45,7 +71,7 @@ const Notification = () => {
         >
           <InboxNotificationList>
             {unreadNotifications.length <= 0 && (
-              <p className="py-2 text-center text-dark-500">No notification</p>
+              <p className="py-2 text-center text-ink-muted">No notification</p>
             )}
 
             {unreadNotifications.length > 0 &&
@@ -53,7 +79,7 @@ const Notification = () => {
                 <InboxNotification
                   key={notification.id}
                   inboxNotification={notification}
-                  className="bg-dark-200 text-white"
+                  className="bg-surface-raised text-ink"
                   href={`/documents/${notification.roomId}`}
                   showActions={false}
 

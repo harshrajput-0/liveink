@@ -33,7 +33,7 @@ const AddDocumentBtn = ({
       type="submit"
       onClick={addDocumentHandler}
       disabled={loading}
-      className="gradient-blue flex gap-1 shadow-md"
+      className="gradient-primary flex gap-1 text-primary-foreground shadow-card"
     >
       {loading ? (
         <Loader2 size={24} className="animate-spin" />

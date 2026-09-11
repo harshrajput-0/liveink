@@ -9,6 +9,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+
+
+const selecItem = "my-0.5! cursor-pointer! rounded-full! bg-dark-200! py-2! pl-3! pr-8! text-blue-100! transition-colors! data-highlighted:bg-dark-500 data-highlighted:text-white focus:bg-dark-300! focus:text-blue-100!"
+
 const UserTypeSelector = ({
   userType,
   setUserType,
@@ -37,13 +41,13 @@ const UserTypeSelector = ({
       >
         <SelectItem
           value="viewer"
-          className="my-0.5! cursor-pointer! rounded-full! bg-dark-200! py-2! pl-3! pr-8! text-blue-100! transition-colors! data-highlighted:bg-dark-500 data-highlighted:text-white focus:bg-dark-300! focus:text-blue-100!"
+          className={selecItem}
         >
           can view
         </SelectItem>
         <SelectItem
           value="editor"
-          className="my-0.5! cursor-pointer! rounded-full! bg-dark-200! py-2! pl-3! pr-8! text-blue-100! transition-colors! data-highlighted:bg-dark-500 data-highlighted:text-white focus:bg-dark-300! focus:text-blue-100!"
+          className={selecItem}
         >
           can edit
         </SelectItem>

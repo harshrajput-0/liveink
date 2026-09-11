@@ -34,7 +34,7 @@ const SearchDocuments = () => {
     <div className="relative w-full max-w-105">
       <Search
         size={16}
-        className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-blue-100"
+        className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink-muted"
       />
       <Input
         value={value}
@@ -43,7 +43,7 @@ const SearchDocuments = () => {
         }
         placeholder="Search"
         aria-label="Search"
-        className="h-9 rounded-lg border-dark-300 bg-dark-200 pl-9 pr-8 text-sm text-white placeholder:text-blue-100 focus-visible:ring-blue-400/50"
+        className="h-9 rounded-lg border-border bg-surface pl-9 pr-8 text-sm text-ink placeholder:text-ink-muted focus-visible:ring-ring/50"
       />
 
       {value && (
@@ -51,7 +51,7 @@ const SearchDocuments = () => {
           type="button"
           onClick={() => setValue("")}
           aria-label="Clear Search"
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-blue-100 hover:text-white"
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-ink-muted hover:text-ink"
         >
           <X size={14} />
         </button>

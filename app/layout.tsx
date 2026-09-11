@@ -3,8 +3,8 @@ import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { ClerkThemeProvider } from "@/components/providers/ClerkThemeProvider";
 import Provider from "./Provider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
@@ -30,27 +30,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-      appearance={{
-        theme: dark,
-      }}
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(
+        "h-full",
+        "antialised",
+        geistSans.variable,
+        geistMono.variable,
+        "font-sans",
+        inter.variable,
+      )}
     >
-      <html
-        lang="en"
-        data-theme="dark"
-        className={cn(
-          "h-full",
-          "antialised",
-          geistSans.variable,
-          geistMono.variable,
-          "font-sans",
-          inter.variable,
-        )}
-      >
-        <body className="min-h-full flex flex-col">
-          <Provider>{children}</Provider>
-        </body>
-      </html>
-    </ClerkProvider>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <ThemeProvider>
+          <ClerkThemeProvider>
+            <Provider>{children}</Provider>
+          </ClerkThemeProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

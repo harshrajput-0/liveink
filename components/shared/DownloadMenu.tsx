@@ -6,13 +6,21 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import IconButton from "./IconButton";
+import IconButton, { IconButtonProps } from "./IconButton";
 
 interface DownloadMenuProps {
   targetId: string;
+  triggerVariant?: IconButtonProps["variant"];
+  triggerRounded?: IconButtonProps["rounded"];
+  triggerSize?: IconButtonProps["size"];
 }
 
-const DownloadMenu = ({ targetId }: DownloadMenuProps) => {
+const DownloadMenu = ({
+  targetId,
+  triggerVariant = "ghost",
+  triggerRounded = true,
+  triggerSize = "md",
+}: DownloadMenuProps) => {
   const getFileName = () => {
     const docTitle = document.getElementById("inksync-doc-title");
     const raw = docTitle?.textContent?.trim();
@@ -46,7 +54,7 @@ const DownloadMenu = ({ targetId }: DownloadMenuProps) => {
                         </xml>
                         <![endif]-->
                         <style>
-                          body { font-family: Georgia, 'Times New Roman', serif; font-size: 12pt; color: #22221E; }
+                          body { font-family: Georgia, 'Times New Roman', serif; font-size: 12pt; color: #22221E; background: #FFFFFF; }
                           h1, h2, h3, h4, h5 { font-family: Georgia, 'Times New Roman', serif; }
                         </style>
                       </head>
@@ -72,27 +80,33 @@ const DownloadMenu = ({ targetId }: DownloadMenuProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <IconButton icon={<Download />} aria-label="Download document" />
+        <IconButton
+          icon={<Download />}
+          aria-label="Download document"
+          variant={triggerVariant}
+          rounded={triggerRounded}
+          size={triggerSize}
+        />
       </PopoverTrigger>
 
       <PopoverContent
         align="end"
-        className="w-56! border! border-dark-300! bg-dark-200! shadow-lg! p-1.5!"
+        className="w-56! border! border-border! bg-surface-raised! shadow-popover! p-1.5!"
       >
         <button
           type="button"
           onClick={downloadAsPDF}
-          className="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left text-sm text-foreground transition-colors hover:bg-dark-400"
+          className="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left text-sm text-foreground transition-colors hover:bg-border"
         >
-          <FileText size={15} className="text-blue-100" />
+          <FileText size={15} className="text-ink-muted" />
           Download as PDF
         </button>
         <button
           type="button"
           onClick={downloadAsWord}
-          className="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left text-sm text-blue-50 transition-colors hover:bg-dark-400"
+          className="flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left text-sm text-ink transition-colors hover:bg-border"
         >
-          <FileType size={15} className="text-blue-100" />
+          <FileType size={15} className="text-ink-muted" />
           Download as Word (.doc)
         </button>
       </PopoverContent>

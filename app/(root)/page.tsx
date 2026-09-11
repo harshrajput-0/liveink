@@ -47,7 +47,7 @@ const Home = async ({
         </div>
 
         <div className="flex flex-col gap-3">
-          <p className="text-10 tracking-wide text-blue-100 ">
+          <p className="text-10 tracking-wide text-ink-muted ">
             Create a document
           </p>
           <NewDocumentCard
@@ -57,20 +57,20 @@ const Home = async ({
         </div>
 
         {allDocuments.length === 0 ? (
-          <div className="flex w-full flex-col items-center justify-center gap-5 rounded-md border border-dark-300 bg-dark-200 p-10 shadow-md">
-            <div className="flex size-15 items-center justify-center rounded-full bg-dark-500">
+          <div className="flex w-full flex-col items-center justify-center gap-5 rounded-md border border-border bg-surface p-10 shadow-card">
+            <div className="flex size-15 items-center justify-center rounded-full bg-primary-tint text-primary">
               <FileText size={26} className="mx-auto" />
             </div>
 
             <div className="flex flex-col items-center gap-2 text-center">
               <h3 className="text-28 font-semibold text-center">No Document</h3>
-              <p className="text-center text-sm font-light text-blue-100">
+              <p className="text-center text-sm font-light text-ink-muted">
                 Create your first document and start collaborating
               </p>
             </div>
           </div>
         ) : filteredDocuments.length === 0 ? (
-          <p className="py-12 text-center text-sm font-light text-blue-100">
+          <p className="py-12 text-center text-sm font-light text-ink-muted">
             No result found
           </p>
         ) : (

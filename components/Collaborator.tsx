@@ -50,18 +50,18 @@ const Collaborator = ({
         />
 
         <div>
-          <p className="line-clamp-1 text-sm font-semibold leading-4 text-white">
+          <p className="line-clamp-1 text-sm font-semibold leading-4 text-ink">
             {collaborator.name}
             <span>{loading && "updating..."}</span>
           </p>
-          <p className="text-sm font-light text-blue-100">
+          <p className="text-sm font-light text-ink-muted">
             {collaborator.email}
           </p>
         </div>
       </div>
 
       {creatorId === collaborator.id ? (
-        <p className="text-sm text-blue-100">Owner</p>
+        <p className="text-sm text-ink-muted">Owner</p>
       ) : (
         <div className="flex items-center gap-2">
           <UserTypeSelector
@@ -73,7 +73,7 @@ const Collaborator = ({
             type="submit"
             disabled={loading}
             onClick={() => removeCollaboratorHandler(collaborator.email)}
-            className="rounded-md bg-transparent px-2 text-red-500 transition-colors hover:bg-red-500/150 hover:text-red-400"
+            className="rounded-md bg-transparent px-2 text-destructive transition-colors hover:bg-destructive-tint hover:text-destructive-hover"
           >
             Remove
           </Button>

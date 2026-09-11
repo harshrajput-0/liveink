@@ -42,12 +42,12 @@ const DeleteModal = ({ roomId }: DeleteModalProps) => {
         <IconButton icon={<Trash2 />} aria-label="delete"></IconButton>
       </DialogTrigger>
 
-      <DialogContent className="w-full! max-w-[min(25rem,calc(100%-2rem))]! rounded-xl! bg-dark-100! border-none! px-5! py-7! shadow-xl! sm:min-w-[min(31.25rem,calc(100%-2rem))]!">
+      <DialogContent className="w-full! max-w-[min(25rem,calc(100%-2rem))]! rounded-xl! bg-surface! border-none! px-5! py-7! shadow-popover! sm:min-w-[min(31.25rem,calc(100%-2rem))]!">
         <DialogHeader>
           <IconButton
             icon={<AlertCircle />}
             aria-label="delete"
-            className="text-red-500"
+            className="text-destructive"
           />
 
           <DialogTitle className="text-2xl">Delete Document</DialogTitle>
@@ -69,7 +69,7 @@ const DeleteModal = ({ roomId }: DeleteModalProps) => {
             variant="destructive"
             onClick={deleteDocumentHandler}
             disabled={loading}
-            className="gradient-red w-1/2 transition-[filter] hover:brightness-110 active:brightness-95 m-0"
+            className="gradient-destructive w-1/2 text-destructive-foreground transition-[filter] hover:brightness-110 active:brightness-95 m-0"
           >
             {loading ? "Deleting..." : "Delete"}
           </Button>

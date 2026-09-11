@@ -1,16 +1,19 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { ClientSideSuspense, RoomProvider } from "@liveblocks/react/suspense";
-import { Header } from "@/components/navigation/Header";
+import EditorHeader from "@/components/navigation/EditorHeader";
 import { UserButton } from "@clerk/nextjs";
 import ActiveCollaborators from "./ActiveCollaborators";
 import { Editor } from "./ui/editor/Editor";
 import { Input } from "./ui/input";
-import { Pencil, Loader2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { updateDocument } from "@/lib/actions/room.actions";
 import InkSyncLoaderDraw from "./icons/InkSyncLoaderDraw";
 import { CollaborativeRoomProps } from "@/types/types";
 import ShareModal from "./ShareModal";
+import ThemeToggle from "./navigation/ThemeToggle";
+import { DownloadMenu } from "./shared";
+import Notification from "./dashboard/Notification";
 
 const CollaborativeRoom = ({
   roomId,
@@ -87,66 +90,73 @@ const CollaborativeRoom = ({
         }
       >
         <div className="flex size-full max-h-screen flex-1 flex-col items-center overflow-hidden">
-          <Header className="sticky top-0 left-0">
-            <div className="flex w-fit items-center justify-center">
-              {editing && !loading ? (
-                <Input
-                  id="inksync-doc-title"
-                  type="text"
-                  value={documentTitle}
-                  ref={inputRef}
-                  placeholder="Enter Title"
-                  onChange={(e) => setDocumentTitle(e.target.value)}
-                  onKeyDown={updateTitleHandler}
-                  disabled={!editing}
-                  className="min-w-19.5! flex-1! border-none! bg-transparent! px-0! text-left! text-base! font-semibold! leading-6! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:text-black! sm:text-xl! md:text-center! font-serif"
-                />
-              ) : (
-                <>
+          <EditorHeader
+            className="sticky top-0 left-0"
+            backHref="/"
+            subtitle={loading ? "Saving…" : "Saved"}
+            titleContainerRef={containerRef}
+            title={
+              <>
+                {editing && !loading ? (
+                  <Input
+                    id="inksync-doc-title"
+                    type="text"
+                    value={documentTitle}
+                    ref={inputRef}
+                    placeholder="Enter Title"
+                    onChange={(e) => setDocumentTitle(e.target.value)}
+                    onKeyDown={updateTitleHandler}
+                    disabled={!editing}
+                    className="min-w-19.5! flex-1! border-none! bg-transparent! px-0! text-left! text-base! font-bold! leading-6! text-ink! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:text-ink! sm:text-xl! font-serif!"
+                  />
+                ) : (
                   <p
                     id={"inksync-data-title"}
-                    className="line-clamp-1 border-dark-400 text-base font-semibold leading-6 sm:pl-0 sm:text-xl"
+                    className="line-clamp-1 text-base font-bold leading-6 text-ink sm:text-xl"
                   >
                     {documentTitle}
                   </p>
-                </>
-              )}
+                )}
 
-              {currentUserType === "creator" && !editing && (
-                <Pencil
-                  size={16}
-                  onClick={() => setEditing(true)}
-                  className="pointer ml-3"
-                />
-              )}
+                {currentUserType === "creator" && !editing && (
+                  <Pencil
+                    size={16}
+                    onClick={() => setEditing(true)}
+                    className="pointer shrink-0 text-ink-muted"
+                  />
+                )}
 
-              {currentUserType === "viewer" && !editing && (
-                <p className="rounded-md bg-dark-400/50 px-2 py-0.5 text-xs text-blue-100/50 ml-2">
-                  View Only
-                </p>
-              )}
-
-              {loading && (
-                <Loader2
-                  size={16}
-                  aria-label="saving"
-                  className="ml-3 animate-spin text-blue-100"
-                />
-              )}
-            </div>
-
-            <div className="flex items-center gap-2 lg:gap-4">
-              {/* share mode here */}
-              <ShareModal
-                roomId={roomId}
-                collaborators={users}
-                creatorId={roomMetadata.creatorId}
-                currentUserType={currentUserType}
-              />
+                {currentUserType === "viewer" && !editing && (
+                  <p className="shrink-0 rounded-md bg-border/50 px-2 py-0.5 text-xs font-normal text-ink-muted">
+                    View Only
+                  </p>
+                )}
+              </>
+            }
+          >
+            <div className="flex items-center -space-x-2">
               <ActiveCollaborators />
-              <UserButton />
+              <div className="ring-1 ring-border-strong rounded-full">
+                <UserButton />
+              </div>
             </div>
-          </Header>
+
+            <ThemeToggle variant="outline" rounded={false} size="sm" />
+            <DownloadMenu
+              targetId="inksync-printable"
+              triggerVariant="outline"
+              triggerRounded={false}
+              triggerSize="sm"
+            />
+            <Notification variant="outline" showCount size="sm" />
+
+            <ShareModal
+              roomId={roomId}
+              collaborators={users}
+              creatorId={roomMetadata.creatorId}
+              currentUserType={currentUserType}
+            />
+          </EditorHeader>
 
           <Editor roomId={roomId} currentUserType={currentUserType} />
         </div>

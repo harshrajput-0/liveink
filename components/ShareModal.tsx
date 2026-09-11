@@ -58,7 +58,7 @@ const ShareModal = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="gradient-blue flex h-9 gap-1 px-4 transition-[filter] hover:brightness-110 active:brightness-95"
+          className="gradient-primary flex h-9 gap-1 px-4 text-primary-foreground transition-[filter] hover:brightness-110 active:brightness-95"
           disabled={currentUserType !== "creator"}
         >
           <Share2 size={18} />
@@ -67,7 +67,7 @@ const ShareModal = ({
       </DialogTrigger>
 
       <DialogContent
-        className="w-full! max-w-[min(25rem,calc(100%-2rem))]! rounded-xl! border-none! bg-dark-300! bg-cover! px-5! py-7! shadow-xl! sm:min-w-[min(31.25rem,calc(100%-2rem))]!"
+        className="w-full! max-w-[min(25rem,calc(100%-2rem))]! rounded-xl! border-none! bg-surface! bg-cover! px-5! py-7! shadow-popover! sm:min-w-[min(31.25rem,calc(100%-2rem))]!"
         onInteractOutside={() => setOpen(false)}
       >
         <DialogHeader>
@@ -77,19 +77,19 @@ const ShareModal = ({
           </DialogDescription>
         </DialogHeader>
 
-        <Label htmlFor="email" className="mt-6 text-blue-100">
+        <Label htmlFor="email" className="mt-6 text-ink-muted">
           Email Address
         </Label>
 
         <div className="flex items-center gap-3">
-          <div className="flex flex-1 items-center rounded-md bg-dark-400">
+          <div className="flex flex-1 items-center rounded-md bg-border">
             <Input
               id="email"
               placeholder="Enter email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={loading}
-              className="h-11! flex-1! border-none! bg-dark-400! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:cursor-not-allowed! disabled:opacity-60!"
+              className="h-11! flex-1! border-none! bg-border! focus-visible:ring-0! focus-visible:ring-offset-0! disabled:cursor-not-allowed! disabled:opacity-60!"
             />
 
             <UserTypeSelector
@@ -102,14 +102,14 @@ const ShareModal = ({
           <Button
             type="submit"
             onClick={shareDcoumentHandler}
-            className="gradient-blue flex h-full w-28 gap-1 px-5 transition-[filter] hover:brightness-110 active:brightness-95 disabled:opacity-60"
+            className="gradient-primary flex h-full w-28 gap-1 px-5 text-primary-foreground transition-[filter] hover:brightness-110 active:brightness-95 disabled:opacity-60"
             disabled={loading || !email}
           >
             {loading ? "Sending..." : "Invite"}
           </Button>
         </div>
 
-        {error && <p className="text-sm text-red-400">{error}</p>}
+        {error && <p className="text-sm text-destructive">{error}</p>}
         <div className="my-2 space-y-2">
           <ul className="flex flex-col">
             {collaborators.map((collaborator) => (

@@ -14,7 +14,7 @@ const ActiveCollaborators = () => {
 
   return (
     <>
-      <div className="flex items-center gap-1 rounded-full bg-dark-400/50 px-2 py-1 text-xs text-blue-100 sm:hidden">
+      <div className="flex items-center gap-1 rounded-full bg-border/50 px-2 py-1 text-xs text-ink-muted sm:hidden">
         <User size={14} />
         {collaborators.length}
       </div>
@@ -26,7 +26,7 @@ const ActiveCollaborators = () => {
               alt={name}
               width={100}
               height={100}
-              className="inline-block size-8 rounded-full ring-1 ring-dark-400"
+              className="inline-block size-8 rounded-full ring-1 ring-border-strong"
             />
           </li>
         ))}
