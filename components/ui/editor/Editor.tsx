@@ -14,8 +14,8 @@ import {
   FloatingComposer,
   FloatingThreads,
   LiveblocksPlugin,
-  useEditorStatus,
-} from "@liveblocks/react-lexical"; // + add
+  useIsEditorReady,
+} from "@liveblocks/react-lexical";
 
 import FloatingToolbarPlugin from "./plugins/FloatingToolbarPlugin";
 
@@ -37,7 +37,7 @@ function Placeholder() {
 }
 
 export function Editor({ roomId, currentUserType }: EditorProps) {
-  const status = useEditorStatus();
+  const isEditorReady = useIsEditorReady();
 
   const { threads } = useThreads();
 
@@ -64,7 +64,7 @@ export function Editor({ roomId, currentUserType }: EditorProps) {
         </div>
 
         <div className="custom-scrollbar h-[calc(100vh-140px)] gap-5 overflow-auto px-5 pt-5 lg:flex-row lg:items-start lg:justify-center  xl:gap-10 xl:pt-10 flex flex-col items-center justify-start">
-          {status === "not-loaded" || status === "loading" ? (
+          {!isEditorReady ? (
             <div className="flex h-full w-full flex-1 items-center justify-center">
               <InkSyncLoaderDraw />
             </div>
