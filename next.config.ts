@@ -13,7 +13,7 @@ export default withSentryConfig(nextConfig, {
 
   org: "harsh-rajput",
 
-  project: "inksync",
+  project: "liveink",
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,

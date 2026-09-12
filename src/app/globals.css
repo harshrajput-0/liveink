@@ -1,0 +1,455 @@
+@import "tailwindcss";
+@import "@liveblocks/react-ui/styles.css";
+@import "@liveblocks/react-ui/styles/dark/attributes.css";
+@import "../styles/editor-theme.css";
+
+/* class-based dark mode: next-themes toggles the "dark" class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ==========================================================================
+   THEME TOKENS
+   Source of truth for light/dark colors. Every color used across the app,
+   the Lexical editor, Clerk, and Liveblocks should flow from these
+   variables so the whole product reacts to one theme switch.
+   ========================================================================== */
+:root {
+  /* ---- base palette (light) ---- */
+  --bg: #f7f6f2;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+
+  --border: #e6e3db;
+  --border-strong: #d8d4c8;
+
+  --ink: #22221e;
+  --ink-muted: #8a8578;
+
+  --primary: #0e7490;
+  --primary-hover: #0b5c73;
+  --primary-tint: #e3f3f7;
+
+  --brand-accent: #4338ca;
+  --brand-accent-hover: #332b9e;
+
+  --amber: #e8873a;
+
+  --thumb-bg: #fdfdfb;
+  --thumb-line: #e6e3db;
+  --thumb-line-light: #efede6;
+
+  --shadow: rgba(34, 34, 30, 0.06);
+  --popover-shadow-value: 0 12px 32px rgba(34, 34, 30, 0.14);
+
+  /* not part of the supplied palette — derived to fit it (destructive/error
+     state; the original palette has no red, so this keeps the same warm,
+     desaturated character as the rest of the light tokens) */
+  --destructive: #c0463b;
+  --destructive-hover: #a83a30;
+  --destructive-tint: #f7e9e7;
+
+  /* icon filter for background-image based toolbar glyphs (they're solid
+     black SVGs, so dark mode needs to invert them — see editor-theme.css) */
+  --editor-icon-filter: none;
+
+  /* ---- shadcn/ui-compatible semantic aliases ---- */
+  --background: var(--bg);
+  --foreground: var(--ink);
+
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+
+  --popover: var(--surface-raised);
+  --popover-foreground: var(--ink);
+
+  --primary-foreground: #ffffff;
+
+  --secondary: var(--border);
+  --secondary-foreground: var(--ink);
+
+  --muted: var(--border);
+  --muted-foreground: var(--ink-muted);
+
+  --accent: var(--primary-tint);
+  --accent-foreground: var(--ink);
+
+  --destructive-foreground: #ffffff;
+
+  --input: var(--border);
+  --ring: var(--primary);
+}
+
+.dark {
+  /* ---- base palette (dark) ---- */
+  --bg: #09111f;
+  --surface: #0b1527;
+  --surface-raised: #0f1c34;
+
+  --border: #27344d;
+  --border-strong: #2e3d5b;
+
+  --ink: #ece9e1;
+  --ink-muted: #9aa0a6;
+
+  --primary: #1c9cb8;
+  --primary-hover: #38bedb;
+  --primary-tint: #0f2b35;
+
+  --brand-accent: #7c74e0;
+  --brand-accent-hover: #948ce8;
+
+  --amber: #f0975a;
+
+  --thumb-bg: #202327;
+  --thumb-line: #33373c;
+  --thumb-line-light: #2a2d31;
+
+  --shadow: rgba(0, 0, 0, 0.35);
+  --popover-shadow-value: 0 16px 40px rgba(0, 0, 0, 0.55);
+
+  --destructive: #e2574b;
+  --destructive-hover: #ef7266;
+  --destructive-tint: #3a2320;
+
+  --editor-icon-filter: invert(1);
+
+  /* ---- shadcn/ui-compatible semantic aliases ---- */
+  --primary-foreground: #ffffff;
+  --destructive-foreground: #ffffff;
+}
+
+@theme inline {
+  /* custom breakpoints, from the old theme.container.screens */
+  --breakpoint-xs: 360px;
+  --breakpoint-2xl: 1400px;
+
+  /* semantic colors — driven by the CSS variables above, so every one of
+     these utilities (bg-background, text-foreground, bg-primary, ...)
+     automatically follows the light/dark theme */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-tint: var(--primary-tint);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-accent-hover: var(--brand-accent-hover);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-hover: var(--destructive-hover);
+  --color-destructive-tint: var(--destructive-tint);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+
+  --color-amber: var(--amber);
+
+  --color-thumb-bg: var(--thumb-bg);
+  --color-thumb-line: var(--thumb-line);
+  --color-thumb-line-light: var(--thumb-line-light);
+
+  /* font */
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+/* container: center + 2rem padding, from the old theme.container config */
+@utility container {
+  margin-inline: auto;
+  padding-inline: 2rem;
+}
+
+/* ========================================== TAILWIND STYLES */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    margin: 0;
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      ".SFNSText-Regular",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+}
+
+/* defined as a @utility (not a plain class) so it can be used with @apply below */
+@utility custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    border-radius: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 50px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-muted);
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    @apply bg-linear-to-t from-primary-hover to-primary;
+  }
+  .gradient-destructive {
+    @apply bg-linear-to-t from-destructive-hover to-destructive;
+  }
+
+  .shadow-card {
+    box-shadow: 0 1px 2px var(--shadow);
+  }
+  .shadow-popover {
+    box-shadow: var(--popover-shadow-value);
+  }
+
+  .floating-toolbar {
+    @apply flex w-full min-w-max items-center justify-center gap-2 rounded-lg bg-surface-raised p-1.5 shadow-popover;
+  }
+
+  .floating-toolbar-btn {
+    @apply relative inline-flex size-8 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium text-ink transition-colors hover:bg-border focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .toolbar-wrapper {
+    @apply z-50 custom-scrollbar w-screen overflow-auto border-y border-border bg-surface-raised pl-3 pr-4 shadow-card;
+  }
+
+  .editor-wrapper {
+    @apply custom-scrollbar h-[calc(100vh-140px)] gap-5 overflow-auto px-5 pt-5 lg:flex-row lg:items-start lg:justify-center  xl:gap-10 xl:pt-10;
+  }
+
+  .comment-thread {
+    @apply w-full max-w-200 border border-border bg-surface shadow-card lg:w-87.5 transition-all;
+  }
+}
+
+/* ======================== Print Document */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #liveink-printable,
+  #liveink-printable * {
+    visibility: visible;
+  }
+  #liveink-printable {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0.5in !important;
+  }
+}
+
+/* ======================== Clerk Override */
+.cl-avatarBox {
+  width: 36px;
+  height: 36px;
+}
+
+.cl-userButtonTrigger {
+  height: fit-content !important;
+}
+
+.cl-cardBox,
+.cl-signIn-start,
+.cl-signUp-start,
+.cl-footer {
+  background: var(--surface);
+  box-shadow: none;
+  padding: 20px;
+}
+
+.cl-socialButtonsBlockButton,
+.cl-socialButtonsBlockButton:hover {
+  height: 40px;
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.cl-logoBox {
+  height: 64px;
+}
+
+.cl-userButtonPopoverMain,
+.cl-userButtonPopoverFooter {
+  background: var(--surface-raised);
+}
+
+.dark .cl-internal-2gzuzc {
+  filter: brightness(1000%);
+}
+
+/* ======================== Liveblocks Override */
+.lb-root {
+  --lb-accent-subtle: var(--surface-raised);
+  --lb-radius: 6px;
+  --lb-dynamic-background: var(--surface-raised);
+}
+
+.lb-comment,
+.lb-thread-comments,
+.lb-composer,
+.lb-comment-reaction {
+  background-color: var(--surface);
+  color: var(--foreground);
+}
+
+.lb-button {
+  --lb-foreground-moderate: var(--foreground);
+}
+
+.lb-button:where([data-variant="primary"]) {
+  background-color: var(--primary-tint);
+  color: var(--primary);
+  padding: 8px;
+}
+
+.lb-button:where(
+  [data-variant="default"]:not(
+    :is(
+      :enabled:hover,
+      :enabled:focus-visible,
+      [aria-expanded="true"],
+      [aria-selected="true"]
+    )
+  )
+) {
+  color: var(--ink-muted);
+}
+
+.lb-button:where(
+  :enabled:hover,
+  :enabled:focus-visible,
+  [aria-expanded="true"],
+  [aria-selected="true"]
+) {
+  --lb-button-background: var(--primary-tint);
+
+  color: var(--primary);
+}
+
+.lb-inbox-notification-list-item:where(:not(:last-of-type)) {
+  border-bottom: none;
+}
+
+.lb-comment-body,
+.lb-dropdown-item,
+.lb-dropdown-item-icon,
+.lb-composer-editor {
+  color: var(--foreground);
+}
+
+.lb-composer-action {
+  padding: 8px;
+}
+
+.lb-comment-content {
+  background: var(--surface-raised);
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.lb-comment-date,
+.lb-lexical-mention-suggestion-user,
+.lb-composer-suggestions-list-item,
+.lb-inbox-notification-date,
+.lb-comment-author,
+.lb-emoji-picker-search-icon,
+.lb-emoji-picker-category-header-title,
+.lb-emoji-picker-search::placeholder {
+  color: var(--ink-muted);
+}
+
+.data-liveblocks-portal {
+  color: var(--ink-muted) !important;
+}
+
+.lb-root:where(:not(.lb-root .lb-root)) {
+  --lb-dynamic-background: var(--surface-raised);
+  color: var(--foreground);
+}
+
+.lb-composer-editor :where([data-placeholder]) {
+  color: var(--ink-muted);
+  font-size: 14px;
+}
+
+.lb-lexical-floating-threads-thread:where([data-resolved]) {
+  opacity: 40%;
+}
+
+.lb-elevation {
+  background: var(--surface-raised);
+}

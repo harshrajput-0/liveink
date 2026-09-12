@@ -1,6 +1,6 @@
-# InkSync
+# LiveInk
 
-InkSync is a real-time collaborative document editor built with Next.js, Lexical, Liveblocks, and Clerk. It allows authenticated users to create documents, edit rich text together in real time, collaborate with other users, manage document permissions, and discuss content through threaded comments.
+LiveInk is a real-time collaborative document editor built with Next.js, Lexical, Liveblocks, and Clerk. It allows authenticated users to create documents, edit rich text together in real time, collaborate with other users, manage document permissions, and discuss content through threaded comments.
 
 ## Features
 
@@ -51,7 +51,7 @@ InkSync is a real-time collaborative document editor built with Next.js, Lexical
 
 Each document is represented by a Liveblocks room.
 
-When a document is created, InkSync creates a Liveblocks room with metadata containing the document owner and title. The creator receives write access automatically.
+When a document is created, LiveInk creates a Liveblocks room with metadata containing the document owner and title. The creator receives write access automatically.
 
 Users can then be invited to the room:
 
@@ -78,7 +78,7 @@ From the editor toolbar, the download menu offers two formats:
 
 ## Prerequisites
 
-Before running InkSync locally, make sure you have:
+Before running LiveInk locally, make sure you have:
 
 - Node.js 20+ installed
 - npm installed
@@ -91,8 +91,8 @@ Before running InkSync locally, make sure you have:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/harshrajput-0/inksync.git
-cd inksync
+git clone https://github.com/harshrajput-0/liveink.git
+cd liveink
 ```
 
 ### 2. Install dependencies
@@ -160,7 +160,7 @@ npm start
 
 ## Deployment
 
-InkSync can be deployed to platforms that support Next.js, such as Vercel.
+LiveInk can be deployed to platforms that support Next.js, such as Vercel.
 
 When deploying, configure the same environment variables in the hosting provider's project settings rather than committing them to the repository.
 
