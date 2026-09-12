@@ -11,7 +11,7 @@ export type RoomDocument = {
   metadata: {
     title: string;
   };
-  createdAt: string;
+  createdAt: string; 
 };
 
 export type UserType = "creator" | "editor" | "viewer";
