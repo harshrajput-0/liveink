@@ -22,7 +22,7 @@
  */
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { OPEN_FLOATING_COMPOSER_COMMAND } from "@liveblocks/react-lexical";
-import Image from "next/image";
+import { MessageSquarePlus } from "lucide-react";
 import { createPortal } from "react-dom";
 import { useFloatingSelectionRange } from "@/hooks/editor/useFloatingSelectionRange";
 import { useFloatingToolbarPosition } from "@/hooks/editor/useFloatingToolbarPosition";
@@ -72,13 +72,9 @@ function Toolbar({
             }
           }}
           className="floating-toolbar-btn"
+          aria-label="Add comment"
         >
-          <Image
-            src="/assets/icons/comment.svg"
-            alt="comment"
-            width={24}
-            height={24}
-          />
+          <MessageSquarePlus size={20} />
         </button>
       </div>
     </div>,

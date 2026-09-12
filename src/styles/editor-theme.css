@@ -252,19 +252,14 @@
   margin-right: 2px;
 }
 
-.toolbar button.toolbar-item i.format {
-  background-size: contain;
-  display: inline-block;
+.toolbar button.toolbar-item .format-icon {
   height: 18px;
   width: 18px;
-  margin-top: 2px;
-  vertical-align: -0.25em;
-  display: flex;
   opacity: 0.7;
-  filter: var(--editor-icon-filter);
+  color: var(--ink);
 }
 
-.toolbar button.toolbar-item:disabled i.format {
+.toolbar button.toolbar-item:disabled .format-icon {
   opacity: 0.25;
 }
 
@@ -272,7 +267,7 @@
   background-color: var(--primary-tint);
 }
 
-.toolbar button.toolbar-item.active i {
+.toolbar button.toolbar-item.active .format-icon {
   opacity: 1;
 }
 
@@ -284,80 +279,4 @@
   width: 1px;
   background-color: var(--border);
   margin: 0 4px;
-}
-
-.toolbar .toolbar-item .text {
-  display: flex;
-  line-height: 20px;
-  width: 200px;
-  vertical-align: middle;
-  font-size: 14px;
-  color: var(--ink-muted);
-  text-overflow: ellipsis;
-  width: 70px;
-  overflow: hidden;
-  height: 20px;
-  text-align: left;
-}
-
-.toolbar .toolbar-item .icon {
-  display: flex;
-  width: 20px;
-  height: 20px;
-  user-select: none;
-  margin-right: 8px;
-  line-height: 16px;
-  background-size: contain;
-}
-
-i.undo {
-  background-image: url(/assets/icons/arrow-counterclockwise.svg);
-}
-
-i.redo {
-  background-image: url(/assets/icons/arrow-clockwise.svg);
-}
-
-i.bold {
-  background-image: url(/assets/icons/type-bold.svg);
-}
-
-i.italic {
-  background-image: url(/assets/icons/type-italic.svg);
-}
-
-i.underline {
-  background-image: url(/assets/icons/type-underline.svg);
-}
-
-i.strikethrough {
-  background-image: url(/assets/icons/type-strikethrough.svg);
-}
-
-i.left-align {
-  background-image: url(/assets/icons/text-left.svg);
-}
-
-i.center-align {
-  background-image: url(/assets/icons/text-center.svg);
-}
-
-i.right-align {
-  background-image: url(/assets/icons/text-right.svg);
-}
-
-i.justify-align {
-  background-image: url(/assets/icons/justify.svg);
-}
-
-i.h1 {
-  background-image: url(/assets/icons/h1.svg);
-}
-
-i.h2 {
-  background-image: url(/assets/icons/h2.svg);
-}
-
-i.h3 {
-  background-image: url(/assets/icons/h3.svg);
 }

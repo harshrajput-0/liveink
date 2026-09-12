@@ -6,12 +6,7 @@
 /* class-based dark mode: next-themes toggles the "dark" class on <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ==========================================================================
-   THEME TOKENS
-   Source of truth for light/dark colors. Every color used across the app,
-   the Lexical editor, Clerk, and Liveblocks should flow from these
-   variables so the whole product reacts to one theme switch.
-   ========================================================================== */
+
 :root {
   /* ---- base palette (light) ---- */
   --bg: #f7f6f2;
@@ -46,10 +41,6 @@
   --destructive: #c0463b;
   --destructive-hover: #a83a30;
   --destructive-tint: #f7e9e7;
-
-  /* icon filter for background-image based toolbar glyphs (they're solid
-     black SVGs, so dark mode needs to invert them — see editor-theme.css) */
-  --editor-icon-filter: none;
 
   /* ---- shadcn/ui-compatible semantic aliases ---- */
   --background: var(--bg);
@@ -109,8 +100,6 @@
   --destructive: #e2574b;
   --destructive-hover: #ef7266;
   --destructive-tint: #3a2320;
-
-  --editor-icon-filter: invert(1);
 
   /* ---- shadcn/ui-compatible semantic aliases ---- */
   --primary-foreground: #ffffff;

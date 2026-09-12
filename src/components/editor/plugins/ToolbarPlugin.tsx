@@ -11,6 +11,21 @@ import {
   REDO_COMMAND,
   UNDO_COMMAND,
 } from "lexical";
+import {
+  Undo2,
+  Redo2,
+  Heading1,
+  Heading2,
+  Heading3,
+  Bold,
+  Italic,
+  Underline,
+  Strikethrough,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
+} from "lucide-react";
 import { useRef } from "react";
 import { useToolbarFormatState } from "@/hooks/editor/useToolbarFormatState";
 import { useActiveBlock } from "@/hooks/editor/useActiveBlock";
@@ -43,7 +58,7 @@ export default function ToolbarPlugin() {
         className="toolbar-item spaced"
         aria-label="Undo"
       >
-        <i className="format undo" />
+        <Undo2 className="format-icon" />
       </button>
       <button
         disabled={!canRedo}
@@ -53,7 +68,7 @@ export default function ToolbarPlugin() {
         className="toolbar-item"
         aria-label="Redo"
       >
-        <i className="format redo" />
+        <Redo2 className="format-icon" />
       </button>
       <Divider />
       <button
@@ -63,7 +78,7 @@ export default function ToolbarPlugin() {
           "toolbar-item spaced " + (activeBlock === "h1" ? "active" : "")
         }
       >
-        <i className="format h1" />
+        <Heading1 className="format-icon" />
       </button>
       <button
         onClick={() => editor.update(() => toggleBlockType(activeBlock, "h2"))}
@@ -72,7 +87,7 @@ export default function ToolbarPlugin() {
           "toolbar-item spaced " + (activeBlock === "h2" ? "active" : "")
         }
       >
-        <i className="format h2" />
+        <Heading2 className="format-icon" />
       </button>
       <button
         onClick={() => editor.update(() => toggleBlockType(activeBlock, "h3"))}
@@ -81,7 +96,7 @@ export default function ToolbarPlugin() {
           "toolbar-item spaced " + (activeBlock === "h3" ? "active" : "")
         }
       >
-        <i className="format h3" />
+        <Heading3 className="format-icon" />
       </button>
       <Divider />
       <button
@@ -91,7 +106,7 @@ export default function ToolbarPlugin() {
         className={"toolbar-item spaced " + (isBold ? "active" : "")}
         aria-label="Format Bold"
       >
-        <i className="format bold" />
+        <Bold className="format-icon" />
       </button>
       <button
         onClick={() => {
@@ -100,7 +115,7 @@ export default function ToolbarPlugin() {
         className={"toolbar-item spaced " + (isItalic ? "active" : "")}
         aria-label="Format Italics"
       >
-        <i className="format italic" />
+        <Italic className="format-icon" />
       </button>
       <button
         onClick={() => {
@@ -109,7 +124,7 @@ export default function ToolbarPlugin() {
         className={"toolbar-item spaced " + (isUnderline ? "active" : "")}
         aria-label="Format Underline"
       >
-        <i className="format underline" />
+        <Underline className="format-icon" />
       </button>
       <button
         onClick={() => {
@@ -118,7 +133,7 @@ export default function ToolbarPlugin() {
         className={"toolbar-item spaced " + (isStrikethrough ? "active" : "")}
         aria-label="Format Strikethrough"
       >
-        <i className="format strikethrough" />
+        <Strikethrough className="format-icon" />
       </button>
       <Divider />
       <button
@@ -128,7 +143,7 @@ export default function ToolbarPlugin() {
         className="toolbar-item spaced"
         aria-label="Left Align"
       >
-        <i className="format left-align" />
+        <AlignLeft className="format-icon" />
       </button>
       <button
         onClick={() => {
@@ -137,7 +152,7 @@ export default function ToolbarPlugin() {
         className="toolbar-item spaced"
         aria-label="Center Align"
       >
-        <i className="format center-align" />
+        <AlignCenter className="format-icon" />
       </button>
       <button
         onClick={() => {
@@ -146,7 +161,7 @@ export default function ToolbarPlugin() {
         className="toolbar-item spaced"
         aria-label="Right Align"
       >
-        <i className="format right-align" />
+        <AlignRight className="format-icon" />
       </button>
       <button
         onClick={() => {
@@ -155,7 +170,7 @@ export default function ToolbarPlugin() {
         className="toolbar-item"
         aria-label="Justify Align"
       >
-        <i className="format justify-align" />
+        <AlignJustify className="format-icon" />
       </button>{" "}
     </div>
   );
